@@ -1,4 +1,4 @@
-**Overall Application Page (Repetitive Features)**
+**1. Overall Application Page (Repetitive Features)**
 
 - Each page will have a navigation bar that contains the logo and title of the application and a search bar.
 - The logo and title of the application is present on the top left corner of the page in a navigation bar.
@@ -7,7 +7,7 @@
   - O1a. If there are posts that contain the words that the user types, there will be pop-ups of the posts that have the typed words. 
   - O1b. If users look up for a post that cannot be found, there will be an error message that states, “Not found. Try again.”
 
-**Sign-In Page (UW Authentication)**
+**2. Sign-In Page (UW Authentication)**
 
 - ​​​​It should provide two text fields: one for entering a login name and one for entering a password
 - If the submit button is clicked and either of the text fields are left blank, an error will be shown to the user.
@@ -17,7 +17,7 @@
 - Side buttons with links to information on learning about uw net id’s and need help.
 - If users input the wrong information, including an incorrect UW netID or password, they will be prompted to enter their information again.
 
-**Settings Page**
+**3. Settings Page**
 
 - Must have a settings button (a settings wheel icon). 
 - Must have a profile picture icon that users can click on to change their profile picture using a picture they can upload from their computer.
@@ -25,7 +25,7 @@
 - Selection of two buttons that turn on enable and unable to get home safe notifications. 
 - On the click of the Save button, if the user's details are updated successfully, a success message is displayed and the altered settings decided by the users will be kept.
 
-**Community Forum Page**
+**4. Community Forum Page**
 
 - If a user who is not logged in visits this page, they are redirected to the Sign-in page. 
 - Must have an account section below the navigation bar.
@@ -37,7 +37,7 @@
 - Each post will have a title that the original poster has written about the suspicious activity they’ve seen. 
 - Each post will have the original poster’s username, a “heart” feature, and a share function for users to share to their friends.
 
-**Create a Post Page**
+**5.1 Create a Post Page**
 
 - Must have a create a new post button.
 - Must have a pop-up title and description text box for users to input information into. 
@@ -45,7 +45,7 @@
 - If a user clicks on the button and the title or description text is blank or incorrect, they will receive an error message prompting them to fill in the required information to post.
 - Must have an ‘X’ button where users can cancel their option to create a new post.
 
-**Deleted Post Fail Page**
+**5.2 Deleted Post Fail Page**
 
 - If the user is trying to view a post that has been deleted by the post creator
   - D1a. The users should not be able to view the post.
@@ -54,7 +54,7 @@
   - D1d. The navigation bar should still be present on the top of the page.
   - D1e. The friend list feature should be still present on the left hand side of the page.
 
-**Posted Message Page**
+**5.3 Posted Message Page**
 
 - When the user clicks on one of the posted messages from the community forum
   - P1a. The content of the message should be clearly displayed in the middle of the page.
@@ -68,7 +68,7 @@
 - When user leave a comment on the post
   - P3a. The posted comment should be present on the comment thread.
 
-**Friends List Page**
+**6. Friends List Page**
 
 - There should be a list of friends that is displayed for everyone the user has added
 - The system should have a search bar to allow users to search for friends
@@ -78,7 +78,7 @@
 - Blocked blocked users can be unblocked when user searches for the blocked user and clicks the unblock button
 - When the unadd button is clicked, the user will no longer be in the Friends List Page, but may still appear as a suggestion
 
-**Direct Message Page**
+**6.1 Direct Message Page**
 
 - There will be a message form that appears when the writing icon is clicked, allowing users to select friends’ name(s) from a dropdown list of all of the users’ friends, message form will be an empty textbox until the user inputs a message, and send the message upon the click of the send button
 - Have a panel of user’s friend list of online friends
@@ -88,7 +88,7 @@
 - Enter button allows users to send the message
 - Red exclamation mark icon appears next to the message if it fails to send
 
-**Get Home Safe Feature Page**
+**7. Get Home Safe Feature Page**
 
 - Must have the title “Get Home Safe Feature” on the screen. 
 - Must have the text: “Need a buddy to walk you home?” 
@@ -101,7 +101,7 @@
 - In the ‘Buddy Requests’ section, there must be submitted requests from users.
 - In the ‘Buddy Requests’ section, there must be descriptions of the username, location
 
-**Non-Functional Requirements**
+**8. Non-Functional Requirements**
 
 - The ‘Get Home Safe’ application will be available to use on mobile devices and on computers. 
 - The ‘Get Home Safe’ application can be used on all versions of Chrome, Safari, and Edge browsers released in the last five years.
