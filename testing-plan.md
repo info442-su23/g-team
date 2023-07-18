@@ -72,7 +72,7 @@ For the 'Get Home Safe' application, defects found during testing will be tracke
 - Expect a back button for users to return to the home page (Requirement F1c)
 
 ## Friends List Feature
-**Context: User has friends**
+**Context: User is logged in**
 - Expect a list of friends displayed that the user has added on the page (Requirement H1)
 - Click on the ‘search bar’, expect users to search for friends by username or given name (Requirement H2)
 - Expect a suggestion tab to add mutual friends (Requirement H4)
@@ -80,9 +80,32 @@ For the 'Get Home Safe' application, defects found during testing will be tracke
 - Click on the unblock tab, expect the blocked friend to no longer be blocked (H6)
 - Click on the unadd button, expect the friend to longer be a friend to the user (H7)
 
-**Context: User has no friends**
-- Expect to see the list of friends blank
-- Expect to not be able to block or unadd
+**Context: User is not logged in** 
+- Expect to be redirected to the sign-in page until the user is authenticated (Requirement D1)
+
+## Direct Message Page
+**Context: Message Form and Sending Messages**
+- Click on the writing icon, expect to select friends' name(s) from dropdown list. Expect to see a message form with an empty textbox to input a message. Click on 'send' to send the message to the selected friend (Requirement I1 & Requirement I7).
+- Expect list of online friends (Requirement I2).
+- Expect panel of recent messages (Requirement I3).
+- Scroll up and down, expect conversation history with each messaged friend (Requirement I4).
+- Expect each message to have the friend's name and profile picture at the top bar (Requirement I5).
+
+**Context: Sending Message to Blocked/Unfriended User**
+- Click on 'send' message button, expect red exclamation mark icon next to message (Requirement I7).
+
+
+## Get Home Safe Feature Page
+
+
+**Context: Successful Post** 
+- Click on 'request a walking buddy' button, expect a pop-up to input information (Requirement J3).
+- Input location and number of walking buddies needed, click on the 'request button' and expect request to be posted (Requirement J4 - J6).
+- Expect successful post to appear on the 'Buddy Requests' section for users to interact with (Requirement I8).
+ 
+**Context: Unsuccessful Post**
+- Expect an error message if all inputs are not completed correctly, prompting user to input information again (Requirement J7). 
+
 
 
   
