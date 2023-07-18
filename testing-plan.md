@@ -36,6 +36,13 @@ For the 'Get Home Safe' application, defects found during testing will be tracke
 - And the user should see side buttons with links to information about learning about UW NetIDs and getting help (Requirement B6)
 - Once user authenticates themselves, expect to see the homepage (the ‘Community Forum Page’) (Requirement B4).
 
+## Settings Feature**
+**Context: User is logged in**
+- Click on profile picture icon, expect to change a picture by uploading from computer (Requirement C2).
+- Click on dropdown menu for gender, major, and year. Expect a range of choices for each selection (Requirement C3).
+- Click on enable or disable for 'Get Home Safe' notifications. Expect notifications of 'walking buddies' requests if enabled (Requirement C4).
+- Click on 'save' button, expect changes to appear for the user (Requirement C5). 
+
 **Context: User Fails to Log-In**
 - Clicks on sign-in button but fails to input the correct UW NetID and password. Expect to see an error message above the UW NetID input, prompting the user to sign-in again (Requirement B2).
 
@@ -96,8 +103,6 @@ For the 'Get Home Safe' application, defects found during testing will be tracke
 
 
 ## Get Home Safe Feature Page
-
-
 **Context: Successful Post** 
 - Click on 'request a walking buddy' button, expect a pop-up to input information (Requirement J3).
 - Input location and number of walking buddies needed, click on the 'request button' and expect request to be posted (Requirement J4 - J6).
