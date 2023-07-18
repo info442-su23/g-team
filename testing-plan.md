@@ -36,7 +36,7 @@ For the 'Get Home Safe' application, defects found during testing will be tracke
 - And the user should see side buttons with links to information about learning about UW NetIDs and getting help (Requirement B6)
 - Once user authenticates themselves, expect to see the homepage (the ‘Community Forum Page’) (Requirement B4).
 
-## Settings Feature**
+## Settings Feature
 **Context: User is logged in**
 - Click on profile picture icon, expect to change a picture by uploading from computer (Requirement C2).
 - Click on dropdown menu for gender, major, and year. Expect a range of choices for each selection (Requirement C3).
