@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Community Forum</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<header>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Friends List</a></li>
+      <li><a href="#">Request A Walking Buddy</a></li>
+      <li><a href="../HTML/setting_page.html">Settings</a></li>
+    </ul>
+    <form class="search-bar">
+      <input type="text" placeholder="Search">
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </nav>
+</header>
+
+<body>
+
+  <h1>UW Get Home Safe Community Forum</h1>
+
+  <div class="add-post-container">
+    <div class="add-post">
+      <div class="add-post-box">
+        <p>Add Post</p>
+        <i class="fas fa-plus"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="friends-list">
+      <div class="my-info-box">
+        <div class="profile-info">
+          <div class="profile-img">
+            <!-- Replace 'profile-image.jpg' with the actual image filename -->
+            <img src="../IMG/empty profile.jpeg" alt="Profile Image">
+          </div>
+          <div class="my-info-content">
+            @My Username
+          </div>
+        </div>
+      </div>
+
+      <h2>Friends Online</h2>
+      <div class="friend-box">
+        <div class="friend">@Friend 1</div>
+      </div>
+      <div class="friend-box">
+        <div class="friend">@Friend 2</div>
+      </div>
+      <div class="friend-box">
+        <div class="friend">@Friend 3</div>
+      </div>
+    </div>
+
+    <div class="threads">
+        <div class="thread-box" onclick="toggleThread('thread1')">
+          <h2>Thread 1</h2>
+          <div id="thread1" class="thread hidden">
+            <div class="message">
+              <p>Message 1</p>
+              <p>Posted by User 1</p>
+              <div class="message-icons">
+                <i class="far fa-heart fa-heart-empty" onclick="toggleHeartIcon(this)"></i>
+                <span class="like-count">0</span>
+                <i class="fas fa-ellipsis-h"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="thread-box" onclick="toggleThread('thread2')">
+        <h2>Thread 2</h2>
+        <div id="thread2" class="thread hidden">
+          <div class="message">
+            <p>Message 2</p>
+            <p>Posted by User 3</p>
+            <div class="message-icons">
+              <i class="far fa-heart fa-heart-empty" onclick="toggleHeartIcon(this)"></i>
+              <span class="like-count">0</span>
+              <i class="fas fa-ellipsis-h"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thread-box" onclick="toggleThread('thread2')">
+        <h2>Thread 3</h2>
+        <div id="thread2" class="thread hidden">
+          <div class="message">
+            <p>Message 3</p>
+            <p>Posted by User 3</p>
+            <div class="message-icons">
+              <i class="far fa-heart fa-heart-empty" onclick="toggleHeartIcon(this)"></i>
+              <span class="like-count">0</span>
+              <i class="fas fa-ellipsis-h"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thread-box" onclick="toggleThread('thread2')">
+        <h2>Thread 4</h2>
+        <div id="thread2" class="thread hidden">
+          <div class="message">
+            <p>Message 4</p>
+            <p>Posted by User 4</p>
+            <div class="message-icons">
+              <i class="far fa-heart fa-heart-empty" onclick="toggleHeartIcon(this)"></i>
+              <span class="like-count">0</span>
+              <i class="fas fa-ellipsis-h"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add more thread-box elements here -->
+    </div>
+  </div>
+
+  <script>
+    // Initialize totalHearts variable outside the function
+  function toggleHeartIcon(icon) {
+  icon.classList.toggle("fa-heart-empty");
+  icon.classList.toggle("fas");
+
+  // Get the like count span associated with this heart icon
+  let likeCountElement = icon.nextElementSibling;
+
+  // Convert the like count to a number
+  let likeCount = parseInt(likeCountElement.innerText);
+
+  // If the heart is filled, increment the count, otherwise, decrement it
+  if(icon.classList.contains("fas")) {
+    likeCount += 1;
+  } else {
+    // Prevent decrementing below 0
+    if(likeCount > 0) {
+      likeCount -= 1;
+    }
+  }
+
+  // Update the text in the like count span
+  likeCountElement.innerText = likeCount;
+}
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Creating New Post Page</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="friends-list">
+      <div class="my-info-box">
+        <div class="profile-info">
+          <div class="profile-img">
+            <img src="../IMG/empty profile.jpeg" alt="Profile Image">
+          </div>
+          <div class="my-info-content">
+            @My Username
+          </div>
+        </div>
+      </div>
+
+      <h2>Friends Online</h2>
+      <div class="friend-box">
+        <div class="friend">@Friend 1</div>
+      </div>
+      <div class="friend-box">
+        <div class="friend">@Friend 2</div>
+      </div>
+      <div class="friend-box">
+        <div class="friend">@Friend 3</div>
+      </div>
+    </div>
+    <div class="form-container">
+      <a href="#" class="close-btn">X</a>
+      <h1>Create A New Post</h1>
+      <form id="postForm" action="#" method="post" enctype="multipart/form-data">
+        <label for="formTitle">Post Title:</label><br>
+        <input type="text" id="formTitle" name="formTitle" maxlength="50"><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="40" maxlength="200"></textarea><br><br>
+
+        <label for="photo">Upload Photo (optional):</label><br>
+        <input type="file" id="photo" name="photo"><br><br>
+
+        <input type="submit" class="submitBtn" value="Add Post">
+      </form>
+      <p id= "fill-in-message" class="fill-in-message">Please fill in the required fields!</p>
+    </div>
+  </div>
+
+
+  <script>
+    document.getElementById('postForm').addEventListener('submit', function(e){
+      var title = document.getElementById('formTitle').value;
+      var message = document.getElementById('message').value;
+
+      if(title == "" || message == ""){
+        e.preventDefault();
+        document.getElementById('fill-in-message').style.display = "block";
+      } else {
+        document.getElementById('fill-in-message').style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+

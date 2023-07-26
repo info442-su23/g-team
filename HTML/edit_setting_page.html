@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Setting Page</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+  <h1>User Settings</h1>
+
+  <div class="profile">
+    <form id="user-settings" onsubmit="event.preventDefault(); openPopup();">
+      <img id="current-profile-picture" src="../IMG/empty profile.jpeg" alt="Profile Picture">
+      <label for="change-profile-img">Change Profile Image</label>
+      <input type="file" id="change-profile-img" name="change-profile-img">
+
+      <br><br>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <br><br>
+
+      <label for="major">Major:</label>
+      <input type="text" id="major" name="major">
+
+      <br><br>
+
+      <label for="school-year">School Year:</label>
+      <select id="year" name="year">
+        <option value="freshamn">Freshamn</option>
+        <option value="sophomore">Sophomore</option>
+        <option value="junior">Junior</option>
+        <option value="senior">Senior</option>
+      </select>
+
+      <br><br>
+
+      <input type="submit" value="Save Changes" class="submitBtn">
+    </form>
+  </div>
+
+  <div id="popup1" class="overlay">
+    <div class="popup">
+      <a class="close" href="#" onclick="closePopup();">&times;</a>
+      <div class="success-message">
+        <div class="checkmark">&#x2713;</div>
+        Your changes have been save successfully!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openPopup() {
+      document.getElementById('popup1').style.visibility = 'visible';
+      document.getElementById('popup1').style.opacity = 1;
+    }
+
+    function closePopup() {
+      document.getElementById('popup1').style.visibility = 'hidden';
+      document.getElementById('popup1').style.opacity = 0;
+    }
+  </script>
+</body>
+</html>
+
