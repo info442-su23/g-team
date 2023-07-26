@@ -6,6 +6,10 @@ import '../../src/style.css'
 import logo from '../IMG/get home safe logo.png'
 
 const Navbar = () => {
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+  }
+
   return (
     <nav className="navbar">
       <div className="nav-content">
@@ -17,15 +21,18 @@ const Navbar = () => {
           <li><Link to="/settings">Settings</Link></li>
         </ul>
       </div>
-      <form className="search-bar">
+      <form className="search-bar" onSubmit={handleFormSubmit}>
         <input type="text" placeholder="Search" />
-        <button type="submit">
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
+        <Link to="/search-results">
+          <button type="submit">
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+        </Link>
       </form>
     </nav>
   );
 };
 
 export default Navbar;
+
 

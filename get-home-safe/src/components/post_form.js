@@ -16,7 +16,7 @@ function PostForm() {
   };
 
   const handleClose = () => {
-    window.location.href = "/"; // redirect to home page
+    window.location.href = "/";
   };
 
   return (

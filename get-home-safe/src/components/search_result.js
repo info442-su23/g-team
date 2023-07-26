@@ -3,9 +3,8 @@ import Navbar from './navbar';
 import AddPostBtn from './add_post_btn';
 import FriendsList from './friends_list';
 import ThreadBox from './thread';
-import { Footer } from './footer';
 
-const Home = () => {
+const SearchResult = () => {
   return (
     <>
       <header>
@@ -17,10 +16,8 @@ const Home = () => {
         <div className="container">
           <FriendsList />
           <div className="threads">
-            <ThreadBox title="Message Title 1" message="Message 1" postedBy="User 1" />
-            <ThreadBox title="Message Title 2" message="Message 2" postedBy="User 2" isDeleted={true}/>
-            <ThreadBox title="Message Title 3" message="Message 3" postedBy="User 3" />
-            <ThreadBox title="Message Title 4" message="Message 4" postedBy="User 4" />
+            <ThreadBox title="Message Title 1" message="Message 1 with search term" postedBy="User 1" />
+            <ThreadBox title="Message Title 2" message="Message 2 with search term" postedBy="User 2" />
           </div>
         </div>
       </main>
@@ -28,10 +25,4 @@ const Home = () => {
   );
 };
 
-export default Home;
-
-
-
-
-
-
+export default SearchResult;

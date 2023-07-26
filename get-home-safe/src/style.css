@@ -166,7 +166,7 @@ body {
 
 /* Add post button in home page */
 .add-post-container {
-  width: 100%;
+  width: 98.5%;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
@@ -176,7 +176,7 @@ body {
   background-color: #ccccff;
   border: 1px solid #ccc;
   padding: 10px;
-  margin-right: 10px;
+  margin-right: 20px;
   border-radius: 10px;
   cursor: pointer;
   display: flex;
