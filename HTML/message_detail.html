@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thread Details</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+</head>
+
+<body>
+  <div class="container">
+    <div class="friends-list">
+      <div class="my-info-box">
+        <div class="profile-info">
+          <div class="profile-img">
+            <img src="../IMG/empty profile.jpeg" alt="Profile Image">
+          </div>
+          <div class="my-info-content">
+            @My Username
+          </div>
+        </div>
+      </div>
+
+      <h2>Friends Online</h2>
+      <div class="friend-box">
+        <div class="friend">@Friend 1</div>
+      </div>
+      <div class="friend-box">
+        <div class="friend">@Friend 2</div>
+      </div>
+      <div class="friend-box">
+        <div class="friend">@Friend 3</div>
+      </div>
+    </div>
+
+
+    <div class="message-detail-container">
+      <div class="message-container">
+        <h1>Post Title</h1>
+        <div class="message-content">
+          <p>This is the main content of the thread. It could be quite long and include multiple paragraphs.</p>
+          <p>@user who posted the message</p>
+          <div class="message-icons">
+            <i class="far fa-heart fa-heart-empty" onclick="toggleHeartIcon(this)"></i>
+            <span class="like-count">0</span>
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="comments-container">
+        <h2>Comments</h2>
+        <div class="comment">
+          <p><strong>@User 1:</strong> "Comment written by user 1".</p>
+        </div>
+        <div class="comment">
+          <p><strong>@User 2:</strong> "Comment written by user 2".</p>
+        </div>
+        <div class="comment">
+          <p><strong>@User 3:</strong> "Comment written by user 3".</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Some parts of the following code was written with the help of open ai.
+    window.onload = function() {
+        let commentIcon = document.querySelector('.fa-ellipsis-h');
+        let commentBox = document.createElement('div');
+        commentBox.innerHTML = `<form id="commentForm">
+                                    <textarea class="comment-box" placeholder="Add a comment..."></textarea>
+                                    <button type="submit">Submit</button>
+                                </form>`;
+        commentBox.style.display = 'none'; // initially hidden
+        commentIcon.addEventListener('click', function() {
+            commentBox.style.display = commentBox.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Insert the comment box after the message container.
+        let messageContainer = document.querySelector('.message-container');
+        messageContainer.parentNode.insertBefore(commentBox, messageContainer.nextSibling);
+
+        // Add the form submission handler
+        let commentForm = document.querySelector('#commentForm');
+        commentForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let newCommentText = event.target.elements[0].value;
+            if (newCommentText) {
+                let commentsContainer = document.querySelector('.comments-container');
+                let newCommentDiv = document.createElement('div');
+                newCommentDiv.className = 'comment';
+                newCommentDiv.innerHTML = `<p><strong>@Your Username:</strong> ${newCommentText}</p>`;
+                commentsContainer.appendChild(newCommentDiv);
+                event.target.elements[0].value = ''; // clear the textarea
+                commentBox.style.display = 'none'; // hide the comment box
+            }
+        });
+    }
+    </script>
+
+</body>
+</html>
+
