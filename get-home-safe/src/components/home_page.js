@@ -24,6 +24,9 @@ const Home = () => {
           </div>
         </div>
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };

@@ -4,6 +4,7 @@ import { faHeart as solidHeart, faEllipsisH } from '@fortawesome/free-solid-svg-
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import Navbar from './navbar';
 import FriendsList from './friends_list';
+import { Footer } from './footer';
 import '../../src/style.css';
 
 const MessageDetail = () => {
@@ -44,48 +45,57 @@ const MessageDetail = () => {
 
 return (
   <>
-    <Navbar />
-    <div className="container">
-      <FriendsList />
+    <header>
+      <Navbar />
+    </header>
 
-      <div className="message-detail-container">
-        <div className="message-container">
-          <h1>Post Title</h1>
-          <div className="message-content">
-            <p>This is the main content of the thread. It could be quite long and include multiple paragraphs.</p>
-            <p>@user who posted the message</p>
-            <div className="message-icons">
-              <FontAwesomeIcon icon={isHeartFilled ? solidHeart : regularHeart} onClick={toggleHeartIcon} />
-              <span className="like-count">{likeCount}</span>
-              <FontAwesomeIcon icon={faEllipsisH} onClick={() => setCommentBoxDisplay(!commentBoxDisplay)} />
+    <body>
+      <div className="container">
+        <FriendsList />
+
+        <div className="message-detail-container">
+          <div className="message-container">
+            <h1>Post Title</h1>
+            <div className="message-content">
+              <p>This is the main content of the thread. It could be quite long and include multiple paragraphs.</p>
+              <p>@user who posted the message</p>
+              <div className="message-icons">
+                <FontAwesomeIcon icon={isHeartFilled ? solidHeart : regularHeart} onClick={toggleHeartIcon} />
+                <span className="like-count">{likeCount}</span>
+                <FontAwesomeIcon icon={faEllipsisH} onClick={() => setCommentBoxDisplay(!commentBoxDisplay)} />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="comments-container">
-          <h2>Comments</h2>
-          {comments.map(comment => (
-            <div key={comment.id} className="comment">
-              <p><strong>{comment.author}:</strong> {comment.text}</p>
-            </div>
-          ))}
-        </div>
-
-        {commentBoxDisplay && (
-          <div>
-            <form onSubmit={handleCommentSubmit}>
-              <textarea
-                className="comment-box"
-                placeholder="Add a comment..."
-                value={commentInput}
-                onChange={(e) => setCommentInput(e.target.value)}
-              />
-              <button type="submit" className='postCommentBtn'>Post</button>
-            </form>
+          <div className="comments-container">
+            <h2>Comments</h2>
+            {comments.map(comment => (
+              <div key={comment.id} className="comment">
+                <p><strong>{comment.author}:</strong> {comment.text}</p>
+              </div>
+            ))}
           </div>
-        )}
+
+          {commentBoxDisplay && (
+            <div>
+              <form onSubmit={handleCommentSubmit}>
+                <textarea
+                  className="comment-box"
+                  placeholder="Add a comment..."
+                  value={commentInput}
+                  onChange={(e) => setCommentInput(e.target.value)}
+                />
+                <button type="submit" className='postCommentBtn'>Post</button>
+              </form>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </body>
+
+    <footer>
+      <Footer />
+    </footer>
   </>
 );
 };

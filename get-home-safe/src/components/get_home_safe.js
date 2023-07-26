@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BuddyRequests from './buddy_request';
+import { Footer } from './footer';
 import Navbar from './navbar';
 
 function GetHomeSafeFeature() {
@@ -21,7 +22,9 @@ function GetHomeSafeFeature() {
 
   return (
     <>
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
       <div className='getHomeSafeFeature'>
         <h1>Get Home Safe Feature</h1>
         <p>Need a buddy to walk you home?</p>
@@ -49,6 +52,9 @@ function GetHomeSafeFeature() {
             <BuddyRequests />
           </div>
       </div>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }
