@@ -1,0 +1,63 @@
+/* src/styles/SignInPage.css */
+.sign-in-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #4b2e83; /* UW purple color */
+  }
+  
+  .logo {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff; /* White color for the logo text */
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  input {
+    padding: 10px;
+    width: 300px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4b2e83; /* UW purple color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .forgot-password {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .forgot-password a {
+    color: #4b2e83; /* UW purple color */
+    text-decoration: none;
+  }
+  
+  .uw-netid-help {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .uw-netid-help p {
+    color: #888;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
