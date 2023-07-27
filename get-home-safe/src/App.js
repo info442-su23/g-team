@@ -8,6 +8,10 @@ import EditSettings from './components/edit_setting';
 import GetHomeSafeFeature from './components/get_home_safe';
 import SearchResult from './components/search_result';
 import DeletedPost from './components/deleted_post';
+import FriendsListPage from './components/freind_list_page';
+import DirectMessage from './components/direct_message';
+
+
 
 const App = () => {
   return (
@@ -22,6 +26,8 @@ const App = () => {
           <Route path="/request-walking-buddy" element={<GetHomeSafeFeature />} />
           <Route path="/search-results" element={<SearchResult />} />
           <Route path="/deleted-post" element={<DeletedPost />} />
+          <Route path="/friend-list-page" element={<FriendsListPage />} />
+          <Route path="/direct-message" element={<DirectMessage />} />
         </Routes>
       </div>
     </Router>

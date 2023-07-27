@@ -596,5 +596,228 @@ input[type=checkbox] {
   text-decoration: underline;
 }
 
+/* Friends List Page */
+
+.friends-list-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.friends-list-page h2 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar-container input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.search-bar-container button {
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ccccff;
+  color: black;
+  cursor: pointer;
+  margin-top: -20px;
+}
+
+.search-bar-container button:hover {
+  background-color: #b4a0e5;
+}
+
+.friends-page-container {
+  width: 80%;
+}
+
+.friend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+.friend:hover {
+  background-color: #f5f5f5;
+}
+
+.friend .block-button, .friend .unblock-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #555;
+  color: white;
+  margin-left: 10px;
+}
+
+.friend .unfriend-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  margin-left: 10px;
+}
+
+.suggested-friends-page-container {
+  width: 80%;
+}
+
+.suggested-friend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+.suggested-friend:hover {
+  background-color: #f5f5f5;
+}
+
+.suggested-friend .block-button, .suggested-friend .unblock-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #555;
+  color: white;
+  margin-left: 10px;
+}
+
+.suggested-friend .unfriend-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  margin-left: 10px;
+}
 
 
+/* Direct Message Page */
+.direct-message-page {
+  display: flex;
+  justify-content: space-between;
+}
+
+.friends-list {
+  width: 25%;
+  padding: 10px;
+  background-color: #ccccff;
+  border-radius: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  margin-right: 10px;
+}
+
+.right-container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  align-items: stretch;
+  margin-right: 30px;
+}
+
+.conversation-list {
+  flex: 1;
+  padding: 10px;
+  background-color: #ccccff;
+  border-radius: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  width: 100%; /* take up full available width */
+}
+
+.conversation-box {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.conversation-box:hover {
+  background-color: #f5f5f5;
+}
+
+.chat-container {
+  flex: 1;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  width: 100%; /* take up full available width */
+}
+
+.message-box {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.message-dm {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: white;
+  width: fit-content;
+}
+
+.message.left {
+  align-self: flex-start;
+  background-color: #ffffff;
+}
+
+.message.right {
+  align-self: flex-end;
+  background-color: #b4a0e5;
+}
+
+.message-send {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.message-send textarea {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.message-send button {
+  padding: 10px 20px;
+  background-color: #ccccff;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.message-send button:hover {
+  background-color: #b4a0e5;
+}
