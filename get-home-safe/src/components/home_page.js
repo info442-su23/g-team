@@ -18,7 +18,7 @@ const Home = () => {
           <FriendsList />
           <div className="threads">
             <ThreadBox title="Message Title 1" message="Message 1" postedBy="User 1" />
-            <ThreadBox title="Message Title 2" message="Message 2" postedBy="User 2" />
+            <ThreadBox title="Message Title 2" message="Message 2" postedBy="User 2" isDeleted={true}/>
             <ThreadBox title="Message Title 3" message="Message 3" postedBy="User 3" />
             <ThreadBox title="Message Title 4" message="Message 4" postedBy="User 4" />
           </div>

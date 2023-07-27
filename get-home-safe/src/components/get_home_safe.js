@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
 import BuddyRequests from './buddy_request';
+import { Footer } from './footer';
 import Navbar from './navbar';
 
 function GetHomeSafeFeature() {
+  // State to check location input
   const [location, setLocation] = useState('');
+  // State to check if the location field is empty or not
   const [isFormInvalid, setIsFormInvalid] = useState(false);
 
+  // Event handler for form submission
+  // If the location textbox is empty, set isFormInvalid to true
   const handleSubmit = (e) => {
     e.preventDefault();
     if (location === '') {
       setIsFormInvalid(true);
     } else {
       setIsFormInvalid(false);
-      // Handle valid form submission here
     }
   };
 
   return (
     <>
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
       <div className='getHomeSafeFeature'>
         <h1>Get Home Safe Feature</h1>
         <p>Need a buddy to walk you home?</p>
@@ -39,12 +45,16 @@ function GetHomeSafeFeature() {
                   </select>
                   <button type="submit" className='requestBtn'>Request</button>
                 </form>
+                {/*If isFormInvalid state is ture, then the following error message will be displayed */}
                 {isFormInvalid && <p id="fill-in-message"> Please fill in all the required fields!</p>}
               </div>
             </div>
             <BuddyRequests />
           </div>
       </div>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }

@@ -6,6 +6,8 @@ import MessageDetail from './components/message_detail';
 import Settings from './components/settings';
 import EditSettings from './components/edit_setting';
 import GetHomeSafeFeature from './components/get_home_safe';
+import SearchResult from './components/search_result';
+import DeletedPost from './components/deleted_post';
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="/edit-settings" element={<EditSettings />} />
           <Route path="/request-walking-buddy" element={<GetHomeSafeFeature />} />
+          <Route path="/search-results" element={<SearchResult />} />
+          <Route path="/deleted-post" element={<DeletedPost />} />
         </Routes>
       </div>
     </Router>

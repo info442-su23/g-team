@@ -1,6 +1,9 @@
 import React from 'react';
 import profileImage from '../IMG/empty profile.jpeg';
 
+/* Code for all the buddy requests that has been uploaded by users
+of the site. Currently, the code demonstrates the static version of
+fake user information */
 
 function BuddyRequests() {
   return (
