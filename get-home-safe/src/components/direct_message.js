@@ -35,6 +35,7 @@ const DirectMessage = () => {
           <FriendsList />
           <div className="right-container">
             <div className="conversation-list">
+              <h2>Messages</h2>
               {friends.map((friend) =>
                 <div key={friend} onClick={() => setActiveFriend(friend)} className="conversation-box">
                   {friend}

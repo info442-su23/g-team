@@ -102,6 +102,7 @@ body {
   margin-bottom: 10px;
   border-radius: 10px;
   background-color: white;
+  margin-left: 10px;
 }
 
 .friend {
@@ -241,7 +242,7 @@ label {
 }
 
 input[type="text"],
-textarea {
+textarea, .signInInput, .signUpInput {
   width: 100%;
   max-width: 100%;
   padding: 10px;
@@ -820,4 +821,60 @@ input[type=checkbox] {
 
 .message-send button:hover {
   background-color: #b4a0e5;
+}
+
+/* Sign In Page */
+.sign-in-page, .sign-up-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #4b2e83; /* UW purple color */
+}
+
+.signInForm, .signUpForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.signInBtn, .signUpBtn {
+  padding: 10px 20px;
+  background-color: #4b2e83; /* UW purple color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signInBtn:hover, .signUpBtn:hover {
+  background-color: #ccccff;
+  color: black;
+}
+
+.forgot-password {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.forgot-password a {
+  color: #4b2e83; /* UW purple color */
+  text-decoration: none;
+}
+
+.uw-netid-help {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.uw-netid-help p {
+  color: #888;
+  font-size: 12px;
+  line-height: 1.5;
 }
