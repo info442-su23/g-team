@@ -26,7 +26,9 @@ const Settings = () => {
                     </div>
 
                     <div className='logout'>
+                      <Link to="/signin-page">
                         <input type="submit" value="Log-Out" className="logoutBtn" />
+                      </Link>
                     </div>
                 </div>
             </div>

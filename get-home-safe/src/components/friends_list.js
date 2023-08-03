@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getAuth } from 'firebase/auth';
 import profileImage from '../IMG/empty profile.jpeg';
 
 const FriendsList = () => {
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      setUsername(user.email.split('@')[0]); // split email string by '@' and take the first part
+    }
+  }, []);
+
   return (
     <div className="friends-list">
       <div className="my-info-box">
@@ -10,7 +21,7 @@ const FriendsList = () => {
             <img src={profileImage} alt="Profile Image" />
           </div>
           <div className="my-info-content">
-            @My Username
+            {username ? `@${username}` : '@My Username'}
           </div>
         </div>
       </div>
@@ -30,4 +41,6 @@ const FriendsList = () => {
 };
 
 export default FriendsList;
+
+
 
