@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../index';
 import Navbar from './navbar';
 import AddPostBtn from './add_post_btn';
 import FriendsList from './friends_list';
@@ -6,6 +8,19 @@ import ThreadBox from './thread';
 import { Footer } from './footer';
 
 const Home = () => {
+  const [postsList, setPostsList] = useState([]);
+
+  // fetch the post information from firebase storage by id.
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const postsCollection = collection(db, 'posts');
+      const postsSnapshot = await getDocs(postsCollection);
+      setPostsList(postsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <>
       <header>
@@ -17,10 +32,18 @@ const Home = () => {
         <div className="container">
           <FriendsList />
           <div className="threads">
-            <ThreadBox title="Message Title 1" message="Message 1" postedBy="User 1" />
+            {postsList.map(post =>
+              post.title && post.message && post.postedBy ?
+                <ThreadBox
+                  key={post.id}
+                  title={post.title}
+                  message={post.message}
+                  postedBy={post.postedBy}
+                  id={post.id}
+                />
+                : null
+            )}
             <ThreadBox title="Message Title 2" message="Message 2" postedBy="User 2" isDeleted={true}/>
-            <ThreadBox title="Message Title 3" message="Message 3" postedBy="User 3" />
-            <ThreadBox title="Message Title 4" message="Message 4" postedBy="User 4" />
           </div>
         </div>
       </main>
@@ -32,6 +55,9 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
 
 
 

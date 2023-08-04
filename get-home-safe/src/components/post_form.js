@@ -1,17 +1,34 @@
-import React, { useState } from 'react';
-import '../../src/style.css';
+import React, { useState, useContext } from 'react'; // useContext is added here
+import { db } from '../index';
+import { addDoc, collection } from 'firebase/firestore';
+import UserContext from './user_context';
 
 function PostForm() {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [isFormInvalid, setIsFormInvalid] = useState(false);
+  const { username } = useContext(UserContext); // useContext is used here
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (title === '' || message === '') {
       setIsFormInvalid(true);
-    } else {
-      setIsFormInvalid(false);
+      return;
+    }
+
+    setIsFormInvalid(false);
+
+    try {
+      await addDoc(collection(db, "posts"), {
+        title: title,
+        message: message,
+        postedBy: username, // username from context
+      });
+
+      handleClose();
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
   };
 
@@ -38,5 +55,7 @@ function PostForm() {
 }
 
 export default PostForm;
+
+
 
 
