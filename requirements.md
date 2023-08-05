@@ -1,9 +1,9 @@
 **1. Overall Application Page (Repetitive Features)**
 
-- A1. Each page will have a navigation bar that contains the logo and title of the application and a search bar.
-- A2. The logo and title of the application is present on the top left corner of the page in a navigation bar.
-- A3. Clicking on the logo and title of the application allows the user to go back to the front page which would be the ‘Community Forum Page’. 
-- A4. Each page will have a “search” feature in the navigation bar that allows users to look up posts or users. 
+- A1. Each page will have a navigation bar that contains the logo and title of the application and a search bar. **(Completed - Pull #33)** 
+- A2. The logo and title of the application is present on the top left corner of the page in a navigation bar. **(Completed - Pull #33)**
+- A3. Clicking on the logo and title of the application allows the user to go back to the front page which would be the ‘Community Forum Page’. **(Completed - Pull #33)**
+- A4. Each page will have a “search” feature in the navigation bar that allows users to look up posts or users. **(Completed - Pull #33)**
   - A4a. If there are posts that contain the words that the user types, there will be pop-ups of the posts that have the typed words. 
   - A4b. If users look up for a post that cannot be found, there will be an error message that states, “Not found. Try again.”
 
@@ -19,31 +19,31 @@
 
 **3. Settings Page**
 
-- C1. Must have a settings button (a settings wheel icon). 
-- C2. Must have a profile picture icon that users can click on to change their profile picture using a picture they can upload from their computer.
-- C3. Must have a selection of gender, major, and year for the user to select from and put on their profile.
-- C4. Selection of two buttons that turn on enable and unable to get home safe notifications. 
-- C5. On the click of the Save button, if the user's details are updated successfully, a success message is displayed and the altered settings decided by the users will be kept.
+- C1. Must have a settings button (a settings wheel icon). **(Completed - Pull #33)** 
+- C2. Must have a profile picture icon that users can click on to change their profile picture using a picture they can upload from their computer. **(Completed - Pull #33)**
+- C3. Must have a selection of gender, major, and year for the user to select from and put on their profile. **(Completed - Pull #33)**
+- C4. Selection of two buttons that turn on enable and unable to get home safe notifications. **(Completed - Pull #33)**
+- C5. On the click of the Save button, if the user's details are updated successfully, a success message is displayed and the altered settings decided by the users will be kept. 
 
 **4. Community Forum Page**
 
 - D1. If a user who is not logged in visits this page, they are redirected to the Sign-in page. 
-- D2. Must have an account section below the navigation bar.
-- D3. Must have a ‘Create Post’ tab. 
-- D4. The account section will show the logged in user’s username, profile picture, and the friends they have currently online.
-- D5. Next to the account section, there will be posts shown that were created by other users to warn them off any suspicious activity or crimes. 
-- D6. Each page will show 10 recent posts. 
+- D2. Must have an account section below the navigation bar. **(Completed - Pull #33)**
+- D3. Must have a ‘Create Post’ tab. **(Completed - Pull #33)**
+- D4. The account section will show the logged in user’s username, profile picture, and the friends they have currently online. **(Completed - Pull #33)**
+- D5. Next to the account section, there will be posts shown that were created by other users to warn them off any suspicious activity or crimes. **(Completed - Pull #33)**
+- D6. Each page will show 10 recent posts. **(Completed - Pull #33)**
 - D7. Must have a ‘Next’ button to view more or older posts. 
-- D8. Each post will have a title that the original poster has written about the suspicious activity they’ve seen. 
-- D9. Each post will have the original poster’s username, a “heart” feature, and a share function for users to share to their friends.
+- D8. Each post will have a title that the original poster has written about the suspicious activity they’ve seen. **(Completed - Pull #33)**
+- D9. Each post will have the original poster’s username, a “heart” feature, and a share function for users to share to their friends. **(Completed - Pull #33)**
 
 **5.1 Create a Post Page**
 
-- E1. Must have a create a new post button.
-- E2. Must have a pop-up title and description text box for users to input information into. 
-- E3. Must have a post button for users to click on when they want to post.
-- E4. If a user clicks on the button and the title or description text is blank or incorrect, they will receive an error message prompting them to fill in the required information to post.
-- E5. Must have an ‘X’ button where users can cancel their option to create a new post.
+- E1. Must have a create a new post button. **(Completed - Pull #33)**
+- E2. Must have a pop-up title and description text box for users to input information into. **(Completed - Pull #33)**
+- E3. Must have a post button for users to click on when they want to post. **(Completed - Pull #33)**
+- E4. If a user clicks on the button and the title or description text is blank or incorrect, they will receive an error message prompting them to fill in the required information to post. **(Completed - Pull #33)**
+- E5. Must have an ‘X’ button where users can cancel their option to create a new post. **(Completed - Pull #33)**
 
 **5.2 Deleted Post Fail Page**
 
@@ -106,6 +106,6 @@
 - K1. The ‘Get Home Safe’ application will be available to use on mobile devices and on computers. 
 - K2. The ‘Get Home Safe’ application can be used on all versions of Chrome, Safari, and Edge browsers released in the last five years.
 - K3. All user data and information will be encrypted at rest.
-- K4. No unauthorized user will be able to access the ‘Get Home Safe’ application if they do not have a UW NetID or are a UW student.
+- K4. No unauthorized user will be able to access the ‘Get Home Safe’ application if they do not have a UW NetID or are a UW student. **(Impossible)**
 - K5. The application must be able to load the homepage in less than 5 seconds on mobile devices and computers.
   
