@@ -1,9 +1,9 @@
-// Import necesssary modules and functions
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { db } from '../index';
 import { Link } from 'react-router-dom';
 
-// State variables for sign-up form
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +22,18 @@ const SignUpForm = () => {
     setError(""); // reset error message before new attempt
     const auth = getAuth();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Set the display name for the user
+      await updateProfile(auth.currentUser, {
+        displayName: email.split('@')[0], // Set the username as the part of the email before the '@' symbol
+      });
+
+      // Create a document for the new user in the 'users' collection.
+      const userDocRef = doc(collection(db, 'users'), userCredential.user.uid);
+      await setDoc(userDocRef, {
+        friends: [],
+      });
+
       // User registered successfully.
       // Set signUpSuccess to true
       setSignUpSuccess(true);
@@ -64,5 +75,6 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
+
 
 

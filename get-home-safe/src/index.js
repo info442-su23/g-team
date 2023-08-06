@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { UserProvider } from './components/user_context';
 
 // Web app's Firebase configuration
 const firebaseConfig = {
@@ -28,7 +29,9 @@ export const auth = getAuth(app);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </React.StrictMode>
 );
 

@@ -32,7 +32,6 @@ const App = () => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ username, setUsername }}>
       <Router>
         <div className="App">
           <Routes>
@@ -45,13 +44,12 @@ const App = () => {
             <Route path="/search-results" element={<SearchResult />} />
             <Route path="/deleted-post" element={<DeletedPost />} />
             <Route path="/friend-list-page" element={<FriendsListPage />} />
-            <Route path="/direct-message" element={<DirectMessage />} />
+            <Route path="/direct-message/:friendId" element={<DirectMessage />} />
             <Route path="/signin-page" element={<SignInPage />} />
             <Route path="/signup-page" element={<SignUpPage /> } />
           </Routes>
         </div>
       </Router>
-    </UserContext.Provider>
   );
 };
 
