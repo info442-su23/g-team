@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { ref, set } from "firebase/database";
+import { realtimeDB } from '../index';
 
-// UserContext objecct with createContext in React
 const UserContext = React.createContext({
   username: null,
   setUsername: () => {},
@@ -12,31 +13,43 @@ const UserContext = React.createContext({
 export const UserProvider = (props) => {
   const [username, setUsername] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Get  user authenticiation from firebase
   useEffect(() => {
     const auth = getAuth();
 
-    //Set up an event listener to track changes in authentication state
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("User Data: ", user);
+        const isOnlineForDatabase = {
+          state: 'online',
+          last_changed: new Date().toISOString(),
+          username: user.displayName || "User"
+        };
         const uid = user.uid;
         setUserId(uid);
         setUsername(user.displayName || "User");
-        console.log("User ID: ", uid);
+        const userStatusDatabaseRef = ref(realtimeDB, '/status/' + uid);
+        set(userStatusDatabaseRef, isOnlineForDatabase);
       } else {
+        const isOfflineForDatabase = {
+          state: 'offline',
+          last_changed: new Date().toISOString()
+        };
+        if (userId) {
+          const userStatusDatabaseRef = ref(realtimeDB, '/status/' + userId);
+          set(userStatusDatabaseRef, isOfflineForDatabase);
+        }
         setUserId(null);
         setUsername(null);
       }
+      setLoading(false);
     });
 
-    // Clean up the event listener when the component unmounts
-    return () => unsubscribe();
-  }, []);
+    return () => {
+      unsubscribe();
+    };
+}, [userId]);
 
-  // Render the UserContext.Provider with the current username, setUsername, userId, and setUserId as the context value
-  // The wrapped child components are rendered using props.children
   return (
     <UserContext.Provider value={{ username, setUsername, userId, setUserId }}>
       {props.children}
@@ -45,5 +58,3 @@ export const UserProvider = (props) => {
 };
 
 export default UserContext;
-
-

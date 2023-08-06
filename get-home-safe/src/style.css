@@ -787,15 +787,7 @@ input[type=checkbox] {
   width: fit-content;
 }
 
-.message.left {
-  align-self: flex-start;
-  background-color: #ffffff;
-}
 
-.message.right {
-  align-self: flex-end;
-  background-color: #b4a0e5;
-}
 
 .message-send {
   display: flex;
@@ -877,4 +869,40 @@ input[type=checkbox] {
   color: #888;
   font-size: 12px;
   line-height: 1.5;
+}
+
+.message-dm.sent {
+  align-self: flex-end; /* push the message to the right side */
+  background-color: #ccccff; /* or any other color you prefer */
+  color: black; /* for the text color */
+  border-radius: 12px 0px 12px 12px;
+}
+
+.message-dm.received {
+  align-self: flex-start; /* keep the message to the left side */
+  background-color: #e6e6e6; /* or any other color you prefer */
+  color: black; /* for the text color */
+  border-radius: 0px 12px 12px 12px;
+}
+
+/* Common styles for both types of messages */
+.message-dm {
+  padding: 5px 10px;
+  margin: 5px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.message-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.online-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: #ccccff;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
 }

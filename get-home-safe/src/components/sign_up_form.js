@@ -31,6 +31,8 @@ const SignUpForm = () => {
       // Create a document for the new user in the 'users' collection.
       const userDocRef = doc(collection(db, 'users'), userCredential.user.uid);
       await setDoc(userDocRef, {
+        email: email,                             // Save the email
+        username: email.split('@')[0],            // Save the username as the part of the email before the '@' symbol
         friends: [],
       });
 
