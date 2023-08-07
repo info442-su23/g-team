@@ -9,22 +9,29 @@ import { Footer } from './footer';
 
 const Home = () => {
   const [postsList, setPostsList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // fetch the post information from firebase storage by id.
   useEffect(() => {
     const fetchPosts = async () => {
       const postsCollection = collection(db, 'posts');
       const postsSnapshot = await getDocs(postsCollection);
-      setPostsList(postsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+      const fetchedPosts = postsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+
+      // Filter the posts based on the searchTerm
+      const filteredPosts = fetchedPosts.filter(post =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setPostsList(filteredPosts);
     };
 
     fetchPosts();
-  }, []);
+  }, [searchTerm]);
 
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar onSearchSubmit={setSearchTerm} />
       </header>
       <main>
         <h1>UW Get Home Safe Community Forum</h1>
@@ -43,7 +50,6 @@ const Home = () => {
                 />
                 : null
             )}
-            <ThreadBox title="Message Title 2" message="Message 2" postedBy="User 2" isDeleted={true}/>
           </div>
         </div>
       </main>
@@ -55,6 +61,10 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
 
 
 

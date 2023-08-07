@@ -5,18 +5,18 @@ import Navbar from './navbar';
 import { Footer } from './footer';
 import UserContext from './user_context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
+
 import { Link } from 'react-router-dom';
 
-// Set hooks for friends, suggested friends
 function FriendsListPage() {
   const [friends, setFriends] = useState([]);
   const [suggestedFriends, setSuggestedFriends] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const { userId } = useContext(UserContext);
 
   useEffect(() => {
-
     const fetchFriendsAndSuggestions = async () => {
       try {
         // Fetch current user document
@@ -25,7 +25,7 @@ function FriendsListPage() {
           const userDoc = await getDoc(userDocRef);
           const userData = userDoc.data();
 
-          // If the user document doesn't have a a friends property, create an empty one
+          // If the user document doesn't have a friends property, create an empty one
           if (!userData.friends) {
             await updateDoc(userDocRef, {
               friends: [],
@@ -33,10 +33,10 @@ function FriendsListPage() {
             userData.friends = [];
           }
 
-          // Update the freind state
+          // Update the friend state
           setFriends(userData.friends);
 
-          // Fetch all user to the suggested friends list
+          // Fetch all users to the suggested friends list
           const usersCollection = collection(db, 'users');
           const usersSnapshot = await getDocs(usersCollection);
           const usersList = usersSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -53,7 +53,36 @@ function FriendsListPage() {
     fetchFriendsAndSuggestions();
   }, [userId]);
 
-  // function to add a user as a friend
+  // Function to search for friends by username
+  const searchFriends = async (query) => {
+    try {
+      const usersCollection = collection(db, 'users');
+      const usersSnapshot = await getDocs(usersCollection);
+      const usersList = usersSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+      const filteredFriends = usersList.filter(
+        (user) => user.id !== userId && user.username.toLowerCase().includes(query.toLowerCase())
+      );
+
+      setSearchResults(filteredFriends);
+    } catch (error) {
+      console.error('Error searching for friends:', error);
+    }
+  };
+
+  // Call searchFriends whenever the searchQuery state changes
+  useEffect(() => {
+    searchFriends(searchQuery);
+  }, [searchQuery]);
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    // Filter the suggestedFriends list based on the search query
+    const filteredResults = suggestedFriends.filter((friend) => friend.username.toLowerCase().includes(searchQuery.toLowerCase()));
+    setSearchResults(filteredResults);
+  };
+
+  // Function to add a user as a friend
   const addFriend = async (friendId, friendUsername) => {
     if (userId) {
       try {
@@ -61,20 +90,21 @@ function FriendsListPage() {
         const userDoc = await getDoc(userDocRef);
         const userData = userDoc.data();
 
-        //If the friend isn't already added, add them to the list
-        if (!userData.friends.some(friend => friend.id === friendId)) {
+        // If the friend isn't already added, add them to the list
+        if (!userData.friends.some((friend) => friend.id === friendId)) {
           await updateDoc(userDocRef, {
             friends: arrayUnion({ id: friendId, username: friendUsername }),
           });
           // Update the local state
           setFriends([...friends, { id: friendId, username: friendUsername }]);
-          setSuggestedFriends(suggestedFriends.filter(friend => friend.id !== friendId));
+          setSuggestedFriends(suggestedFriends.filter((friend) => friend.id !== friendId));
+          setSearchResults([]); // Clear search results after adding a friend
         }
       } catch (error) {
-        console.error("Error adding friend:", error);
+        console.error('Error adding friend:', error);
       }
     } else {
-      console.error("No user is logged in");
+      console.error('No user is logged in');
     }
   };
 
@@ -87,7 +117,7 @@ function FriendsListPage() {
         const userData = userDoc.data();
 
         // If the friend exists in the friend list, remove them
-        if (userData.friends.some(friend => friend.id === friendId)) {
+        if (userData.friends.some((friend) => friend.id === friendId)) {
           const updatedFriends = userData.friends.filter((friend) => friend.id !== friendId);
           await updateDoc(userDocRef, {
             friends: updatedFriends,
@@ -96,10 +126,10 @@ function FriendsListPage() {
           setSuggestedFriends([...suggestedFriends, userData.friends.find((friend) => friend.id === friendId)]);
         }
       } catch (error) {
-        console.error("Error unfriending:", error);
+        console.error('Error unfriending:', error);
       }
     } else {
-      console.error("No user is logged in");
+      console.error('No user is logged in');
     }
   };
 
@@ -112,7 +142,7 @@ function FriendsListPage() {
       <body>
         <div className="friends-list-page">
           <h2>Friends List</h2>
-          <div className="search-bar-container">
+          <div className="search-bar-container" onSubmit={handleFormSubmit}>
             <input
               type="text"
               placeholder="Search friends..."
@@ -120,17 +150,37 @@ function FriendsListPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button onClick={() => addFriend()} className="add-friend-button">
-              Add Friend
+            <button type="submit">
+              <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>
+
+          <div>
+            {searchQuery !== '' && ( // Only render search results if searchQuery is not empty
+                <div className="search-results">
+                  {searchResults.map((result) => (
+                    <div key={result.id} className={`search-result`}>
+                      <span>{result.username}</span>
+                      <div className="friend-actions">
+                        <button className="add-friend-button" onClick={() => addFriend(result.id, result.username)}>
+                          Add Friend
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+
+
           <div className="friends-page-container">
             <h3>Your Friends</h3>
             {friends.map((friend) => (
               <div key={friend.id} className={`friend ${friend.isBlocked ? 'blocked' : ''}`}>
                 <span>{friend.username}</span>
                 <div className="friend-actions">
-                <Link to={`/direct-message/${friend.id}`}>
+                  <Link to={`/direct-message/${friend.id}`}>
                     <FontAwesomeIcon icon={faPencilAlt} style={{ marginRight: '5px' }} />
                   </Link>
                   <button className="unfriend-button" onClick={() => unfriend(friend.id)}>
