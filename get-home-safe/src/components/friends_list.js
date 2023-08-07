@@ -3,30 +3,48 @@ import { getAuth } from 'firebase/auth';
 import { getDatabase, ref, onValue, off } from 'firebase/database';
 import profileImage from '../IMG/empty profile.jpeg';
 import UserContext from './user_context';
+import { useNavigate } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../index';
 
 const FriendsList = () => {
-  const { userId } = useContext(UserContext);  // Destructure userId from the context
+  const { userId: currentUserId } = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [onlineFriends, setOnlineFriends] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
     const user = auth.currentUser;
     if (user) {
-      setUsername(user.email.split('@')[0]); // split email string by '@' and take the first part
+      setUsername(user.email.split('@')[0]); // Split email string by '@' and take the first part
     }
 
     // Fetching online friends
-    const db = getDatabase();
-    const statusRef = ref(db, 'status');
-    const handleValueChange = snapshot => {
+    const statusRef = ref(getDatabase(), 'status');
+
+    const handleValueChange = async (snapshot) => {
       const statuses = snapshot.val();
+      console.log('All Statuses:', statuses);
+
       const onlineUsers = [];
-      for (let uid in statuses) {
-        if (statuses[uid].state === 'online' && uid !== userId) { // Check if the user is not the current user
-          onlineUsers.push(statuses[uid]);
+
+      // Fetch all user documents from Firestore
+      const usersCollection = collection(db, 'users');
+      const usersSnapshot = await getDocs(usersCollection);
+
+      usersSnapshot.docs.forEach((userDoc) => {
+        const userData = userDoc.data();
+        const userId = userDoc.id;
+
+        // Check if the user is online and not the current user
+        if (statuses[userId] && statuses[userId].state === 'online' && userId !== currentUserId) {
+          onlineUsers.push({ ...userData, userId }); // Include userId in the user data
         }
-      }
+      });
+
+      console.log('Online Users:', onlineUsers);
       setOnlineFriends(onlineUsers);
     };
 
@@ -35,11 +53,12 @@ const FriendsList = () => {
     // Cleanup listener on component unmount
     return () => {
       off(statusRef, 'value', handleValueChange);
-    }
+    };
+  }, [currentUserId]);
 
-  }, [userId]);
-
-
+  const handleFriendClick = (friendUserId) => {
+    navigate(`/direct-message/${friendUserId}`);
+  };
 
   return (
     <div className="friends-list">
@@ -56,9 +75,14 @@ const FriendsList = () => {
 
       <h2>Friends Online</h2>
       {onlineFriends.map((friend, index) => (
-        <div key={index} className="friend-box">
-          <div className="friend">@{friend.username || 'Unknown'}
-          <div className="online-indicator"></div> {/* This is the new circle icon */}
+        <div
+          key={index}
+          className="friend-box"
+          onClick={() => handleFriendClick(friend.userId)}
+        >
+          <div className="friend">
+            @{friend.username || 'Unknown'}
+            <div className="online-indicator"></div>
           </div>
         </div>
       ))}
@@ -67,7 +91,3 @@ const FriendsList = () => {
 };
 
 export default FriendsList;
-
-
-
-
