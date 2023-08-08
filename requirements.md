@@ -9,13 +9,13 @@
 
 **2. Sign-In Page (UW Authentication)**
 
-- ​​​​B1. It should provide two text fields: one for entering a login name and one for entering a password
-- B2. If the submit button is clicked and either of the text fields are left blank, an error will be shown to the user.
-- B3. This page has a forgot password button. On the click of this button, the user will be redirected to the ‘Recover Password’ page. 
-- B4. If a user successfully logs in using their UW NetID information, they will be directed to the ‘Community Forum Page’ which is the homepage of the application.
-- B5. Must have the Sign-in button 
-- B6. Side buttons with links to information on learning about uw net id’s and need help.
-- B7. If users input the wrong information, including an incorrect UW netID or password, they will be prompted to enter their information again.
+- ​​​​B1. It should provide two text fields: one for entering a login name and one for entering a password **(Completed - Pull #44)**
+- B2. If the submit button is clicked and either of the text fields are left blank, an error will be shown to the user. **(Completed - Pull #44)**
+- B3. This page has a forgot password button. On the click of this button, the user will be redirected to the ‘Recover Password’ page. **(Completed - Pull #44)**
+- B4. If a user successfully logs in using their UW NetID information, they will be directed to the ‘Community Forum Page’ which is the homepage of the application. **(Impossible)**
+- B5. Must have the Sign-in button **(Completed - Pull #44)**
+- B6. Side buttons with links to information on learning about uw net id’s and need help. **(Impossible)**
+- B7. If users input the wrong information, including an incorrect UW netID or password, they will be prompted to enter their information again. **(Impossible)**
 
 **3. Settings Page**
 
@@ -27,7 +27,7 @@
 
 **4. Community Forum Page**
 
-- D1. If a user who is not logged in visits this page, they are redirected to the Sign-in page. 
+- D1. If a user who is not logged in visits this page, they are redirected to the Sign-in page. **(Completed - Pull #44)**
 - D2. Must have an account section below the navigation bar. **(Completed - Pull #33)**
 - D3. Must have a ‘Create Post’ tab. **(Completed - Pull #33)**
 - D4. The account section will show the logged in user’s username, profile picture, and the friends they have currently online. **(Completed - Pull #33)**
@@ -73,10 +73,10 @@
 - H1. There should be a list of friends that is displayed for everyone the user has added **(Completed - Pull #38)**
 - H2. The system should have a search bar to allow users to search for friends **(Completed - Pull #38)**
 - H3. The system should allow users to add friends **(Completed - Pull #33)**
-- H4. There should be suggestions for friends to add mutual friends **(Completed - Pull #33)**
-- H5. When the blocked button is clicked for the selected friend of the user, the user will no longer see that user in the Friends List Page or Direct Message Page. **(Completed - Pull #44)**
-- H6. Blocked blocked users can be unblocked when user searches for the blocked user and clicks the unblock button **(Completed - Pull #44)**
-- H7. When the unadd button is clicked, the user will no longer be in the Friends List Page, but may still appear as a suggestion **(Completed - Pull #44)**
+- H4. There should be suggestions for friends to add friends **(Completed - Pull #33)**
+- H5. When the unadd button is clicked for the selected friend of the user, the user will no longer see that user in the Friends List Page or Direct Message Page. **(Completed - Pull #45)**
+- H6. Unadded users can be unadded when user searches for the user and clicks the unadd button **(Completed - Pull #45)**
+- H7. When the unadd button is clicked, the user will no longer be in the Friends List Page, but may still appear as a suggestion **(Completed - Pull #45)**
 
 **6.1 Direct Message Page**
 
@@ -90,22 +90,22 @@
 
 **7. Get Home Safe Feature Page**
 
-- J1. Must have the title “Get Home Safe Feature” on the screen. **(Completed - Pull #33)**
-- J2. Must have the text: “Need a buddy to walk you home?”  **(Completed - Pull #33)**
-- J3. Below the text, the page must have the option for users to submit a request for a “walking buddy”. **(Completed - Pull #33)**
-- J4. In the request, must have location text where users can input where they are currently at. **(Completed - Pull #33)**
-- J5. In the request, there must be a ‘how many people’ drop-down menu with numbers starting from 1 to 5+. **(Completed - Pull #33)**
-- J6. In the request, there must be a ‘request button’ after users have filled out the location and ‘how many people’ sections. **(Completed - Pull #33)**
-- J7. If users fail to complete both sections, they will be prompted to fill out those sections before submitting a request. **(Completed - Pull #33)**
-- J8. Next to the request function, there must be the ‘Buddy Requests’ sections. **(Completed - Pull #33)**
-- J9. In the ‘Buddy Requests’ section, there must be submitted requests from users. **(Completed - Pull #33)**
-- J10. In the ‘Buddy Requests’ section, there must be descriptions of the username, location **(Completed - Pull #33)**
+- J1. Must have the title “Get Home Safe Feature” on the screen. **(Completed - Pull #45)**
+- J2. Must have the text: “Need a buddy to walk you home?”  **(Completed - Pull #45)**
+- J3. Below the text, the page must have the option for users to submit a request for a “walking buddy”. **(Completed - Pull #45)**
+- J4. In the request, must have location text where users can input where they are currently at. **(Completed - Pull #45)**
+- J5. In the request, there must be a ‘how many people’ drop-down menu with numbers starting from 1 to 5+. **(Completed - Pull #45)**
+- J6. In the request, there must be a ‘request button’ after users have filled out the location and ‘how many people’ sections. **(Completed - Pull #45)**
+- J7. If users fail to complete both sections, they will be prompted to fill out those sections before submitting a request. **(Completed - Pull #45)**
+- J8. Next to the request function, there must be the ‘Buddy Requests’ sections. **(Completed - Pull #45)**
+- J9. In the ‘Buddy Requests’ section, there must be submitted requests from users. **(Completed - Pull #45)**
+- J10. In the ‘Buddy Requests’ section, there must be descriptions of the username, location **(Completed - Pull #45)**
 
 **8. Non-Functional Requirements**
 
-- K1. The ‘Get Home Safe’ application will be available to use on mobile devices and on computers. 
-- K2. The ‘Get Home Safe’ application can be used on all versions of Chrome, Safari, and Edge browsers released in the last five years.
-- K3. All user data and information will be encrypted at rest.
+- K1. The ‘Get Home Safe’ application will be available to use on mobile devices and on computers. **(Completed - Pull #33)**
+- K2. The ‘Get Home Safe’ application can be used on all versions of Chrome, Safari, and Edge browsers released in the last five years. **(Completed - Pull #33)**
+- K3. All user data and information will be encrypted at rest. **(Completed - Pull #33)**
 - K4. No unauthorized user will be able to access the ‘Get Home Safe’ application if they do not have a UW NetID or are a UW student. **(Impossible)**
-- K5. The application must be able to load the homepage in less than 5 seconds on mobile devices and computers.
+- K5. The application must be able to load the homepage in less than 5 seconds on mobile devices and computers. **(Completed - Pull #33)**
   
