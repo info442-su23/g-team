@@ -10,23 +10,18 @@ import { Footer } from './footer';
 import { db } from '../index';
 import UserContext from './user_context';
 
-
-// Component to display a message that has been deleted
 const DeletedMessage = () => <p>This post has been deleted.</p>;
 
-// Component to display a normal message
-const NormalMessage = ({ message, postedBy }) => (
+const NormalMessage = ({ message, postedBy, imageUrl }) => (
   <>
-    {/* Display the message content */}
+    {imageUrl && <img src={imageUrl} alt="Post Image" style={{ maxWidth: '100%', height: 'auto' }} />}
     <p>{message}</p>
-    {/* Display the username of the user who posted the message */}
     <p>@{postedBy}</p>
   </>
 );
 
 const MessageDetail = () => {
   const { threadId } = useParams();
-  console.log("threadId:", threadId);
   const [threadDetail, setThreadDetail] = useState([]);
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState('');
@@ -35,11 +30,9 @@ const MessageDetail = () => {
   const [likeCount, setLikeCount] = useState(0);
   const { username } = useContext(UserContext);
 
-
   const fetchData = async () => {
     try {
       const docRef = doc(db, "posts", threadId);
-      console.log("docRef:", docRef);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -47,22 +40,18 @@ const MessageDetail = () => {
         setThreadDetail(docSnap.data());
       } else {
         console.log("No such document!");
-        // Handle the case where the document does not exist
       }
 
       const querySnapshot = await getDocs(collection(db, "posts", threadId, "comments"));
       setComments(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     } catch (error) {
       console.error("Error fetching data:", error);
-      // Handle the error appropriately
     }
   };
 
   useEffect(() => {
     fetchData();
   }, [threadId]);
-  console.log("threadDetail:", threadDetail);
-
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -74,10 +63,7 @@ const MessageDetail = () => {
     };
 
     const docRef = await addDoc(collection(db, "posts", threadId, "comments"), newComment);
-
-    // Include the id in the newComment object
     setComments(prevComments => [...prevComments, {...newComment, id: docRef.id}]);
-
     setCommentInput('');
     setCommentBoxDisplay(false);
   };
@@ -88,11 +74,12 @@ const MessageDetail = () => {
   };
 
   const postContent = threadDetail.isDeleted
-  ? <DeletedMessage />
-  : <NormalMessage message={threadDetail.message} postedBy={threadDetail.postedBy} />;
+    ? <DeletedMessage />
+    : <NormalMessage message={threadDetail.message} postedBy={threadDetail.postedBy} imageUrl={threadDetail.imageURL} />;
 
 
   return (
+
     <>
       <header>
         <Navbar />
@@ -147,5 +134,3 @@ const MessageDetail = () => {
 };
 
 export default MessageDetail;
-
-

@@ -1,60 +1,60 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { ref, set } from "firebase/database";
-import { realtimeDB } from '../index';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../index';
+import profileImage from '../IMG/empty profile.jpeg';
 
-const UserContext = React.createContext({
+const UserContext = createContext({
   username: null,
   setUsername: () => {},
   userId: null,
   setUserId: () => {},
+  profileImageURL: profileImage,
+  setProfileImageURL: () => {},
 });
 
 export const UserProvider = (props) => {
   const [username, setUsername] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [profileImageURL, setProfileImageURL] = useState(profileImage);
 
   useEffect(() => {
     const auth = getAuth();
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const isOnlineForDatabase = {
-          state: 'online',
-          last_changed: new Date().toISOString(),
-          username: user.displayName || "User"
-        };
         const uid = user.uid;
         setUserId(uid);
         setUsername(user.displayName || "User");
-        const userStatusDatabaseRef = ref(realtimeDB, '/status/' + uid);
-        set(userStatusDatabaseRef, isOnlineForDatabase);
-      } else {
-        const isOfflineForDatabase = {
-          state: 'offline',
-          last_changed: new Date().toISOString()
-        };
-        if (userId) {
-          const userStatusDatabaseRef = ref(realtimeDB, '/status/' + userId);
-          set(userStatusDatabaseRef, isOfflineForDatabase);
+
+        const userDocRef = doc(db, 'users', uid);
+        const userDocSnapshot = await getDoc(userDocRef);
+
+        if (userDocSnapshot.exists()) {
+          const userData = userDocSnapshot.data();
+          if (userData.profileImageURL) {
+            setProfileImageURL(userData.profileImageURL);
+          }
         }
+      } else {
         setUserId(null);
         setUsername(null);
+        setProfileImageURL(profileImage); // Reset to default
       }
-      setLoading(false);
     });
 
     return () => {
       unsubscribe();
     };
-}, [userId]);
+  }, []);
 
   return (
-    <UserContext.Provider value={{ username, setUsername, userId, setUserId }}>
+    <UserContext.Provider value={{ username, setUsername, userId, setUserId, profileImageURL, setProfileImageURL }}>
       {props.children}
     </UserContext.Provider>
   );
 };
 
 export default UserContext;
+
+
+

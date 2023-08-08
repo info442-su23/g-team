@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { onSnapshot, collection, addDoc, serverTimestamp, query, orderBy, doc, setDoc, getDoc } from 'firebase/firestore';
+import {
+  onSnapshot,
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  doc,
+  setDoc,
+  getDoc
+} from 'firebase/firestore';
 import { db } from '../index';
 import { Footer } from './footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +27,7 @@ const DirectMessage = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [failedMessages, setFailedMessages] = useState([]);
+  const [opponentData, setOpponentData] = useState({});
 
   function generateConversationId(userId1, userId2) {
     return [userId1, userId2].sort().join('-');
@@ -37,13 +48,29 @@ const DirectMessage = () => {
 
   useEffect(() => {
     if (conversationId) {
-      const unsubscribe = onSnapshot(query(collection(db, 'conversations', conversationId, 'messages'), orderBy('timestamp', 'asc')), snapshot => {
-        setMessages(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-      });
+      const unsubscribe = onSnapshot(
+        query(collection(db, 'conversations', conversationId, 'messages'), orderBy('timestamp', 'asc')),
+        snapshot => {
+          setMessages(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        }
+      );
 
       return () => unsubscribe();
     }
   }, [conversationId, selectedFriend]);
+
+  useEffect(() => {
+    const fetchOpponentData = async () => {
+      if (selectedFriend) {
+        const userDoc = await getDoc(doc(db, 'users', selectedFriend));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setOpponentData(userData);
+        }
+      }
+    };
+    fetchOpponentData();
+  }, [selectedFriend]);
 
   const sendMessage = async () => {
     try {
@@ -88,6 +115,16 @@ const DirectMessage = () => {
         <div className="right-container">
           {selectedFriend && (
             <div className="chat-container">
+              {/* Opponent's username and profile picture */}
+              <div className="opponent-header">
+                <img
+                  src={opponentData.profileImageURL || "/path_to_default_image.jpg"}
+                  alt={`${opponentData.username || 'Unknown'} Profile Image`}
+                  className="opponent-profile-image"
+                />
+                <span>{opponentData.username || 'Unknown'}</span>
+              </div>
+
               <div className="message-box">
                 {messages.map((message, index) =>
                   <div
@@ -119,4 +156,5 @@ const DirectMessage = () => {
 };
 
 export default DirectMessage;
+
 

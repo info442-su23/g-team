@@ -1,13 +1,14 @@
-import React, { useState, useContext } from 'react'; // useContext is added here
-import { db } from '../index';
-import { addDoc, collection } from 'firebase/firestore';
+import React, { useState, useContext } from 'react';
+import { db, storage } from '../index'; // Make sure you're importing the correct Firebase utilities
+import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import UserContext from './user_context';
 
 function PostForm() {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [isFormInvalid, setIsFormInvalid] = useState(false);
-  const { username } = useContext(UserContext); // useContext is used here
+  const { username } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,11 +20,35 @@ function PostForm() {
 
     setIsFormInvalid(false);
 
+    let imageURL = '';
+
+    const imageFile = document.getElementById('photo').files[0];
+    console.log(imageFile); // Log the selected file
+
+    if (imageFile) {
+      const storageRef = ref(storage, `posts/images/${imageFile.name}`);
+
+      try {
+        // Upload the image to Firebase Storage
+        const uploadTaskSnapshot = await uploadBytesResumable(storageRef, imageFile);
+
+        // Get the download URL for the uploaded image
+        imageURL = await getDownloadURL(uploadTaskSnapshot.ref);
+        console.log('Image uploaded successfully to Firebase Storage.');
+      } catch (error) {
+        console.error('Error uploading image: ', error);
+        alert('Error uploading image. Please try again.');
+        return;
+      }
+    }
+
     try {
       await addDoc(collection(db, "posts"), {
         title: title,
         message: message,
-        postedBy: username, // username from context
+        postedBy: username,
+        imageURL: imageURL,
+        postTime: Timestamp.now()
       });
 
       handleClose();
@@ -55,6 +80,7 @@ function PostForm() {
 }
 
 export default PostForm;
+
 
 
 

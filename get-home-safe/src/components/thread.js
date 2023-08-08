@@ -5,7 +5,7 @@ import { faHeart as solidHeart, faEllipsisH } from '@fortawesome/free-solid-svg-
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 
 // Main component to display a thread box (title, message, and message icons)
-const ThreadBox = ({ title, message, postedBy, isDeleted = false, id }) => {
+const ThreadBox = ({ title, message, postedBy, postTime, isDeleted = false, id }) => {
   const [isHeartFilled, setHeartFilled] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +41,14 @@ const ThreadBox = ({ title, message, postedBy, isDeleted = false, id }) => {
     </>
   );
 
+  const formatDate = (timestamp) => {
+    if (!timestamp?.seconds) return "Unknown Date";
+    const date = new Date(timestamp.seconds * 1000);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+};
+
+
+
   const postLink = isDeleted ? "/deleted-post" : `/message-detail/${id}`;
   const postTitle = isDeleted ? "Deleted Post" : title;
 
@@ -52,6 +60,7 @@ const ThreadBox = ({ title, message, postedBy, isDeleted = false, id }) => {
       <div id={title} className={`thread ${isOpen ? '' : 'hidden'}`}>
         <div className="message">
           {postContent}
+          <p>Posted on {formatDate(postTime)}</p>
           <div className="message-icons">
             {icons}
           </div>

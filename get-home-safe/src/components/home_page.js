@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../index';
 import Navbar from './navbar';
 import AddPostBtn from './add_post_btn';
@@ -13,8 +13,8 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsCollection = collection(db, 'posts');
-      const postsSnapshot = await getDocs(postsCollection);
+      const postsQuery = query(collection(db, 'posts'), orderBy("postTime", "desc"));
+      const postsSnapshot = await getDocs(postsQuery);
       const fetchedPosts = postsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 
       // Filter the posts based on the searchTerm
@@ -25,8 +25,14 @@ const Home = () => {
       setPostsList(filteredPosts);
     };
 
+
     fetchPosts();
   }, [searchTerm]);
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp.seconds * 1000);
+    return `${date.toLocaleDateString()} ${date.getHours()}:${date.getMinutes()}`;
+  };
 
   return (
     <>
@@ -40,12 +46,13 @@ const Home = () => {
           <FriendsList />
           <div className="threads">
             {postsList.map(post =>
-              post.title && post.message && post.postedBy ?
+              post.title && post.message && post.postedBy && post.postTime ?
                 <ThreadBox
                   key={post.id}
                   title={post.title}
                   message={post.message}
                   postedBy={post.postedBy}
+                  postTime={post.postTime}
                   id={post.id}
                 />
                 : null

@@ -8,7 +8,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../index';
 
 const FriendsList = () => {
-  const { userId: currentUserId } = useContext(UserContext);
+  const { userId: currentUserId, profileImageURL: currentProfileImageURL } = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [onlineFriends, setOnlineFriends] = useState([]);
 
@@ -65,7 +65,7 @@ const FriendsList = () => {
       <div className="my-info-box">
         <div className="profile-info">
           <div className="profile-img">
-            <img src={profileImage} alt="Profile Image" />
+            <img src={currentProfileImageURL || profileImage} alt="My Profile Image" />
           </div>
           <div className="my-info-content">
             {username ? `@${username}` : '@My Username'}
@@ -74,14 +74,19 @@ const FriendsList = () => {
       </div>
 
       <h2>Friends Online</h2>
-      {onlineFriends.map((friend, index) => (
+      {onlineFriends.map((friend) => (
         <div
-          key={index}
+          key={friend.userId}
           className="friend-box"
           onClick={() => handleFriendClick(friend.userId)}
         >
           <div className="friend">
-            @{friend.username || 'Unknown'}
+            <img
+              src={friend.profileImageURL || profileImage}
+              alt={`${friend.username || 'Unknown'} Profile Image`}
+              className="friend-profile-image"
+            />
+            {friend.username || 'Unknown'}
             <div className="online-indicator"></div>
           </div>
         </div>

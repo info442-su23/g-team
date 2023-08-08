@@ -8,6 +8,8 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 import { UserProvider } from './components/user_context';
+import { getStorage } from 'firebase/storage';
+
 
 // Web app's Firebase configuration
 const firebaseConfig = {
@@ -25,6 +27,7 @@ const app = initializeApp(firebaseConfig);
 export const realtimeDB = getDatabase(app);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+export const storage = getStorage(app);
 
 
 

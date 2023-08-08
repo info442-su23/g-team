@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import '../../src/style.css';
-import profileImage from '../IMG/empty profile.jpeg';
 import Navbar from './navbar';
 import { Footer } from './footer';
 import { Link } from 'react-router-dom';
+import UserContext from './user_context';  // Import the UserContext
 
 const Settings = () => {
+  const { username, profileImageURL } = useContext(UserContext);  // Use context to get current user's info
+
   return (
     <>
       <Navbar />
@@ -13,8 +15,8 @@ const Settings = () => {
         <div className="setting-container">
             <h1>User Settings</h1>
                 <div className="profile-container">
-                    <img id="current-profile-picture" src={profileImage} alt="Profile Picture" />
-                    <h1>@Username</h1>
+                    <img id="current-profile-picture" src={profileImageURL} alt="Profile Picture" />  {/* Use profileImageURL */}
+                    <h1>@{username}</h1>
 
                     <div className="notification-setting">
                         <label htmlFor="notifications">Enable Notification</label>
@@ -35,7 +37,8 @@ const Settings = () => {
         </body>
         <Footer />
     </>
-);
+  );
 };
 
 export default Settings;
+
