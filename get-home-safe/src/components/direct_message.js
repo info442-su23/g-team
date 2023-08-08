@@ -144,7 +144,7 @@ const DirectMessage = () => {
             {friends.map((friend) => (
               <div
                 key={friend.id}
-                className={`friend-box ${selectedFriend === friend.id ? 'selected' : ''}`}
+                className={`friend ${selectedFriend === friend.id ? 'selected' : ''}`}
                 onClick={() => {
                   setSelectedFriend(friend.id);
                 }}

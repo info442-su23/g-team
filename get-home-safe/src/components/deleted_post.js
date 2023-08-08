@@ -30,3 +30,4 @@ const DeletedPost = () => {
 };
 
 export default DeletedPost;
+

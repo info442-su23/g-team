@@ -58,12 +58,10 @@ function BuddyRequests() {
     // Query conversations where the current user is a participant
     const q = query(convoCollection, where("participants", "array-contains", userId));
     const convoSnapshot = await getDocs(q);
-    console.log('All conversations involving current user:', convoSnapshot.docs.map(doc => doc.data()));
 
     // Check if there's an existing conversation between the current user and the requestor
     const existingConvo = convoSnapshot.docs.find(doc => {
       const participants = doc.data().participants;
-      console.log('Participants for this conversation:', participants);
       return participants.includes(userId) && participants.includes(requestorUserId);
     });
 
@@ -82,7 +80,7 @@ function BuddyRequests() {
       <h2>Buddy Requests</h2>
       {requests.map(request => (
         <div className="buddy-request-box" onClick={() => handleRequestClick(request.username)} key={request.id}>
-          <div className="buddy-request">@{request.username} Request for {request.peopleCount} people
+          <div className="buddy-request">@{request.username} Requested for {request.peopleCount} people
             <div className="location">{request.location}</div>
           </div>
         </div>

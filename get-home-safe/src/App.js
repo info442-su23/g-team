@@ -11,7 +11,7 @@ import SearchResult from './components/search_result';
 import DeletedPost from './components/deleted_post';
 import FriendsListPage from './components/freind_list_page';
 import DirectMessage from './components/direct_message';
-import SignInPage from './components/signIn_page'; // Import SignInForm component
+import SignInPage from './components/signIn_page';
 import SignUpPage from './components/sign_up_page';
 import { ForgotPwPage } from './components/forgot_pw';
 

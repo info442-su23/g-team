@@ -156,10 +156,10 @@ function FriendsListPage() {
           </div>
 
           <div>
-            {searchQuery !== '' && ( // Only render search results if searchQuery is not empty
-                <div className="search-results">
+            {searchQuery !== '' && (
+                <div className="friend-search-results-container">
                   {searchResults.map((result) => (
-                    <div key={result.id} className={`search-result`}>
+                    <div key={result.id} className={`friend-search-results`}>
                       <span>{result.username}</span>
                       <div className="friend-actions">
                         <button className="add-friend-button" onClick={() => addFriend(result.id, result.username)}>
