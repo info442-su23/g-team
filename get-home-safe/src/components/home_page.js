@@ -39,6 +39,7 @@ const Home = () => {
       <header>
         <Navbar onSearchSubmit={setSearchTerm} />
       </header>
+
       <body>
         <main>
           <h1>UW Get Home Safe Community Forum</h1>
@@ -46,6 +47,7 @@ const Home = () => {
           <div className="container">
             <FriendsList />
             <div className="threads">
+            <ThreadBox isDeleted={true} />
               {postsList.length === 0 ? (
                 <p>No posts match the search term. Try Again.</p>
               ) : (
