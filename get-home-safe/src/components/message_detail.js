@@ -1,64 +1,98 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { collection, getDocs, doc, getDoc, addDoc, Timestamp} from 'firebase/firestore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import Navbar from './navbar';
 import FriendsList from './friends_list';
 import { Footer } from './footer';
-import '../../src/style.css';
+import { db } from '../index';
+import UserContext from './user_context';
+
+const DeletedMessage = () => <p>This post has been deleted.</p>;
+
+const NormalMessage = ({ message, postedBy, imageUrl }) => (
+  <>
+    {imageUrl && <img src={imageUrl} alt="Post Image" style={{ maxWidth: '100%', height: 'auto' }} />}
+    <p>{message}</p>
+    <p>@{postedBy}</p>
+  </>
+);
 
 const MessageDetail = () => {
-  // State to store the comments
-  // presetting the states will be helpful when we create the user dataset later.
-  const [comments, setComments] = useState([
-    { id: 1, text: "Comment written by user 1", author: "@User 1" },
-    { id: 2, text: "Comment written by user 2", author: "@User 2" },
-    { id: 3, text: "Comment written by user 3", author: "@User 3" }
-  ]);
-
-  // State necessary for keeping the user text/comment input
+  const { threadId } = useParams();
+  const [threadDetail, setThreadDetail] = useState([]);
+  const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState('');
-  // State for whether the comment box will be displayed or not
   const [commentBoxDisplay, setCommentBoxDisplay] = useState(false);
-  // State to track if the heart icon will be filled or not
   const [isHeartFilled, setHeartFilled] = useState(false);
-  // State for keeping track of the likeCounts
   const [likeCount, setLikeCount] = useState(0);
+  const { username } = useContext(UserContext);
 
-  // Event handler for posting comment
-  // When the submit button is pushed, the new comment with user's text input
-  // will get added to the commnets array. Then clear the comment input and hide
-  // the display of the comment box.
-  const handleCommentSubmit = (e) => {
+  const fetchData = async () => {
+    try {
+      const docRef = doc(db, "posts", threadId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Fetched thread document:", docSnap.data());
+        setThreadDetail(docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+
+      const querySnapshot = await getDocs(collection(db, "posts", threadId, "comments"));
+      setComments(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [threadId]);
+
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    setComments([...comments, { id: Date.now(), text: commentInput, author: "@Your Username" }]);
+
+    const newComment = {
+      text: commentInput,
+      author: username,
+      createdAt: Timestamp.now(),
+    };
+
+    const docRef = await addDoc(collection(db, "posts", threadId, "comments"), newComment);
+    setComments(prevComments => [...prevComments, {...newComment, id: docRef.id}]);
     setCommentInput('');
     setCommentBoxDisplay(false);
   };
 
-  //If the heart icon is clicked, the state of the icon will change to filled.
-  // The count of the like will change depending on the status of the click / fill or not filled.
   const toggleHeartIcon = () => {
     setHeartFilled(!isHeartFilled);
     setLikeCount(isHeartFilled ? likeCount - 1 : likeCount + 1);
   };
 
-return (
-  <>
-    <header>
-      <Navbar />
-    </header>
+  const postContent = threadDetail.isDeleted
+    ? <DeletedMessage />
+    : <NormalMessage message={threadDetail.message} postedBy={threadDetail.postedBy} imageUrl={threadDetail.imageURL} />;
 
-    <body>
+
+  return (
+
+    <>
+      <header>
+        <Navbar />
+      </header>
+
       <div className="container">
         <FriendsList />
 
         <div className="message-detail-container">
           <div className="message-container">
-            <h1>Post Title</h1>
+            <h1>{threadDetail.title}</h1>
             <div className="message-content">
-              <p>This is the main content of the thread. It could be quite long and include multiple paragraphs.</p>
-              <p>@user who posted the message</p>
+              {postContent}
               <div className="message-icons">
                 <FontAwesomeIcon icon={isHeartFilled ? solidHeart : regularHeart} onClick={toggleHeartIcon} />
                 <span className="like-count">{likeCount}</span>
@@ -91,17 +125,12 @@ return (
           )}
         </div>
       </div>
-    </body>
 
-    <footer>
-      <Footer />
-    </footer>
-  </>
-);
+      <footer>
+        <Footer />
+      </footer>
+    </>
+  );
 };
 
 export default MessageDetail;
-
-
-
-

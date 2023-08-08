@@ -1,23 +1,61 @@
-import React, { useState } from 'react';
-import profileImage from '../IMG/empty profile.jpeg';
+import React, { useContext, useState } from 'react';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { collection, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../index';
 import Navbar from './navbar';
 import { Footer } from './footer';
 import Popup from './popup';
-
+import UserContext from './user_context';
 
 const EditSettings = () => {
-  // State to control the popup
   const [isOpen, setIsOpen] = useState(false);
-  // Event handler for the edit setting form submission
-  const handleSubmit = (e) => {
+  const { userId, profileImageURL, setProfileImageURL } = useContext(UserContext);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsOpen(true);
+
+    if (userId && selectedImage) {
+      try {
+        const storage = getStorage();
+        const storageRef = ref(storage, `profile_images/${userId}`);
+        await uploadBytes(storageRef, selectedImage);
+
+        const downloadURL = await getDownloadURL(storageRef);
+
+        const userDocRef = doc(db, 'users', userId);
+        await updateDoc(userDocRef, {
+          profileImageURL: downloadURL,
+        });
+
+        setProfileImageURL(downloadURL);
+        setIsOpen(true);
+      } catch (error) {
+        console.error("Error updating profile image: ", error);
+        // Add a UI notification to inform the user of the error
+      }
+    }
   };
-  // Event handler for closing the popup
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImageURL(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const closePopup = (e) => {
     e.preventDefault();
     setIsOpen(false);
   };
+
+
 
   return (
     <>
@@ -28,9 +66,18 @@ const EditSettings = () => {
       <h1>Edit Profile</h1>
       <div className="profile">
         <form id="user-settings" onSubmit={handleSubmit}>
-          <img id="current-profile-picture" src={profileImage} alt="Profile Picture" />
+          <img
+            id="current-profile-picture"
+            src={profileImageURL}
+            alt="Profile Picture"
+          />
           <label htmlFor="change-profile-img">Change Profile Image</label>
-          <input type="file" id="change-profile-img" name="change-profile-img" />
+          <input
+            type="file"
+            id="change-profile-img"
+            name="change-profile-img"
+            onChange={handleImageChange}
+          />
           <br /><br />
 
           <label htmlFor="gender">Gender:</label>

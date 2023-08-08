@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '../index';
 import Navbar from './navbar';
 import AddPostBtn from './add_post_btn';
 import FriendsList from './friends_list';
@@ -6,10 +8,36 @@ import ThreadBox from './thread';
 import { Footer } from './footer';
 
 const Home = () => {
+  const [postsList, setPostsList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const postsQuery = query(collection(db, 'posts'), orderBy("postTime", "desc"));
+      const postsSnapshot = await getDocs(postsQuery);
+      const fetchedPosts = postsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+
+      // Filter the posts based on the searchTerm
+      const filteredPosts = fetchedPosts.filter(post =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setPostsList(filteredPosts);
+    };
+
+
+    fetchPosts();
+  }, [searchTerm]);
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp.seconds * 1000);
+    return `${date.toLocaleDateString()} ${date.getHours()}:${date.getMinutes()}`;
+  };
+
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar onSearchSubmit={setSearchTerm} />
       </header>
       <main>
         <h1>UW Get Home Safe Community Forum</h1>
@@ -17,10 +45,18 @@ const Home = () => {
         <div className="container">
           <FriendsList />
           <div className="threads">
-            <ThreadBox title="Message Title 1" message="Message 1" postedBy="User 1" />
-            <ThreadBox title="Message Title 2" message="Message 2" postedBy="User 2" isDeleted={true}/>
-            <ThreadBox title="Message Title 3" message="Message 3" postedBy="User 3" />
-            <ThreadBox title="Message Title 4" message="Message 4" postedBy="User 4" />
+            {postsList.map(post =>
+              post.title && post.message && post.postedBy && post.postTime ?
+                <ThreadBox
+                  key={post.id}
+                  title={post.title}
+                  message={post.message}
+                  postedBy={post.postedBy}
+                  postTime={post.postTime}
+                  id={post.id}
+                />
+                : null
+            )}
           </div>
         </div>
       </main>
@@ -32,6 +68,13 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+
+
+
 
 
 

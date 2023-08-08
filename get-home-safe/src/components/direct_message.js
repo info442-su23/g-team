@@ -1,76 +1,160 @@
-import React, { useState } from 'react';
-import FriendsList from './friends_list';
-import Navbar from './navbar';
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import {
+  onSnapshot,
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  doc,
+  setDoc,
+  getDoc
+} from 'firebase/firestore';
+import { db } from '../index';
 import { Footer } from './footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import UserContext from './user_context';
+import Navbar from './navbar';
 
 const DirectMessage = () => {
-    const user = "User";
-    const [friends, setFriends] = useState(['Friend1', 'Friend2', 'Friend3']);
-    const [activeFriend, setActiveFriend] = useState('Friend1');
-    const [messages, setMessages] = useState({
-        'Friend1': [{ text: 'Did you see that guy near MaryGates?', author: 'Friend1' }, { text: 'Becareful when u are passing by!', author: 'Friend1' }],
-        'Friend2': [{ text: 'Hey, do you need a walking buddy?', author: 'Friend2' }, { text: 'I am near your location right now!', author: 'Friend2' }],
-        'Friend3': [{ text: 'Good morning!', author: 'Friend3' }, { text: 'Have a safe day!', author: 'Friend3' }]
-    });
-    const [newMessage, setNewMessage] = useState('');
+  const { userId: currentUserId } = useContext(UserContext);
+  const { friendId } = useParams();
 
-    const sendMessage = () => {
-        const newMessages = { ...messages };
-        if (newMessages[activeFriend]) {
-            newMessages[activeFriend].push({ text: newMessage, author: user });
-        } else {
-            newMessages[activeFriend] = [{ text: newMessage, author: user }];
+  const [selectedFriend, setSelectedFriend] = useState(friendId);
+  const [friends, setFriends] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [failedMessages, setFailedMessages] = useState([]);
+  const [opponentData, setOpponentData] = useState({});
+
+  function generateConversationId(userId1, userId2) {
+    return [userId1, userId2].sort().join('-');
+  }
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      const userDoc = await getDoc(doc(db, 'users', currentUserId));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setFriends(userData.friends || []);
+      }
+    };
+    fetchFriends();
+  }, [currentUserId]);
+
+  const conversationId = generateConversationId(currentUserId, selectedFriend);
+
+  useEffect(() => {
+    if (conversationId) {
+      const unsubscribe = onSnapshot(
+        query(collection(db, 'conversations', conversationId, 'messages'), orderBy('timestamp', 'asc')),
+        snapshot => {
+          setMessages(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
         }
-        setMessages(newMessages);
-        setNewMessage('');
-    }
+      );
 
-    return (
-      <>
+      return () => unsubscribe();
+    }
+  }, [conversationId, selectedFriend]);
+
+  useEffect(() => {
+    const fetchOpponentData = async () => {
+      if (selectedFriend) {
+        const userDoc = await getDoc(doc(db, 'users', selectedFriend));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setOpponentData(userData);
+        }
+      }
+    };
+    fetchOpponentData();
+  }, [selectedFriend]);
+
+  const sendMessage = async () => {
+    try {
+      const messageData = {
+        text: newMessage,
+        author: currentUserId,
+        timestamp: serverTimestamp(),
+      };
+
+      await addDoc(collection(db, 'conversations', conversationId, 'messages'), messageData);
+      await setDoc(doc(db, 'conversations', conversationId), {
+        participants: [currentUserId, selectedFriend]
+      }, { merge: true });
+      setNewMessage('');
+
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      setFailedMessages([...failedMessages, newMessage]);
+    }
+  };
+
+  return (
+    <>
       <header>
         <Navbar />
       </header>
-      <body>
-        <div className="direct-message-page">
-          <FriendsList />
-          <div className="right-container">
-            <div className="conversation-list">
-              <h2>Messages</h2>
-              {friends.map((friend) =>
-                <div key={friend} onClick={() => setActiveFriend(friend)} className="conversation-box">
-                  {friend}
-                </div>
-              )}
+
+      <div className="direct-message-page">
+        <div className="friend-list">
+          {friends.map(friend => (
+            <div
+              key={friend.id}
+              onClick={() => {
+                setSelectedFriend(friend.id);
+              }}
+            >
+              {friend.username}
             </div>
-            {activeFriend &&
-              <div className="chat-container">
-                <div className="message-box">
-                  {messages[activeFriend] && messages[activeFriend].map((message, index) =>
-                    <div key={index} className={`message-dm ${message.author === user ? "right" : "left"}`}>
-                      {message.text}
-                    </div>
-                  )}
-                </div>
-                <div className="message-send">
-                  <textarea
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="Type your message here..."
-                  />
-                  <button onClick={sendMessage}>Send</button>
-                </div>
-              </div>
-            }
-          </div>
+          ))}
         </div>
-      </body>
+
+        <div className="right-container">
+          {selectedFriend && (
+            <div className="chat-container">
+              {/* Opponent's username and profile picture */}
+              <div className="opponent-header">
+                <img
+                  src={opponentData.profileImageURL || "/path_to_default_image.jpg"}
+                  alt={`${opponentData.username || 'Unknown'} Profile Image`}
+                  className="opponent-profile-image"
+                />
+                <span>{opponentData.username || 'Unknown'}</span>
+              </div>
+
+              <div className="message-box">
+                {messages.map((message, index) =>
+                  <div
+                    key={index}
+                    className={`message-dm ${message.author === currentUserId ? "sent" : "received"}`}>
+                    {message.text}
+                    {failedMessages.includes(message.text) && <FontAwesomeIcon icon={faExclamationCircle} color="red" />}
+                  </div>
+                )}
+              </div>
+              <div className="message-send">
+                <textarea
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Type your message here..."
+                />
+                <button onClick={sendMessage}>Send</button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
 
       <footer>
         <Footer />
       </footer>
     </>
-    );
+  );
 };
 
 export default DirectMessage;
+
 

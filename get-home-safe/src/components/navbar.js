@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 import '../../src/style.css';
 import logo from '../IMG/get home safe logo.png';
 
-const Navbar = () => {
+
+const Navbar = ({ onSearchSubmit }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    onSearchSubmit(searchTerm); // Call the callback with the search term
   };
+
 
   // Get the current user location path using useLocation hook
   const location = useLocation();
@@ -38,12 +42,14 @@ const Navbar = () => {
         </ul>
       </div>
       <form className="search-bar" onSubmit={handleFormSubmit}>
-        <input type="text" placeholder="Search" />
-        <Link to="/search-results">
-          <button type="submit">
-            <FontAwesomeIcon icon={faSearch} />
-          </button>
-        </Link>
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}/>
+        <button type="submit">
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
       </form>
     </nav>
   );
