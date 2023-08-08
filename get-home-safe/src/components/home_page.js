@@ -6,6 +6,7 @@ import AddPostBtn from './add_post_btn';
 import FriendsList from './friends_list';
 import ThreadBox from './thread';
 import { Footer } from './footer';
+import DeletedPost from './deleted_post';
 
 const Home = () => {
   const [postsList, setPostsList] = useState([]);
@@ -25,7 +26,6 @@ const Home = () => {
       setPostsList(filteredPosts);
     };
 
-
     fetchPosts();
   }, [searchTerm]);
 
@@ -39,27 +39,33 @@ const Home = () => {
       <header>
         <Navbar onSearchSubmit={setSearchTerm} />
       </header>
-      <main>
-        <h1>UW Get Home Safe Community Forum</h1>
-        <AddPostBtn />
-        <div className="container">
-          <FriendsList />
-          <div className="threads">
-            {postsList.map(post =>
-              post.title && post.message && post.postedBy && post.postTime ?
-                <ThreadBox
-                  key={post.id}
-                  title={post.title}
-                  message={post.message}
-                  postedBy={post.postedBy}
-                  postTime={post.postTime}
-                  id={post.id}
-                />
-                : null
-            )}
+      <body>
+        <main>
+          <h1>UW Get Home Safe Community Forum</h1>
+          <AddPostBtn />
+          <div className="container">
+            <FriendsList />
+            <div className="threads">
+              {postsList.length === 0 ? (
+                <p>No posts match the search term. Try Again.</p>
+              ) : (
+                postsList.map(post =>
+                  post.title && post.message && post.postedBy && post.postTime ?
+                    <ThreadBox
+                      key={post.id}
+                      title={post.title}
+                      message={post.message}
+                      postedBy={post.postedBy}
+                      postTime={post.postTime}
+                      id={post.id}
+                    />
+                    : null
+                )
+              )}
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </body>
       <footer>
         <Footer />
       </footer>
@@ -68,6 +74,7 @@ const Home = () => {
 };
 
 export default Home;
+
 
 
 

@@ -96,7 +96,7 @@ body {
   max-height: 500px;
 }
 
-.friend-box, .my-info-box, .thread-box {
+.friend-online-box, .my-info-box, .thread-box {
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
@@ -105,8 +105,10 @@ body {
   margin-left: 10px;
 }
 
-.friend {
+.friend-online {
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
 /* My username box inside the firends list container */
@@ -242,7 +244,7 @@ label {
 }
 
 input[type="text"],
-textarea, .signInInput, .signUpInput {
+textarea, .signInInput, .signUpInput, .findpwInput{
   width: 100%;
   max-width: 100%;
   padding: 10px;
@@ -825,7 +827,7 @@ input[type=checkbox] {
   background-color: #4b2e83; /* UW purple color */
 }
 
-.signInForm, .signUpForm {
+.signInForm, .signUpForm, .find-pw {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -885,6 +887,43 @@ input[type=checkbox] {
   border-radius: 0px 12px 12px 12px;
 }
 
+.forgotPwPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #4b2e83; /* UW purple color */
+}
+
+.forgotPwFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items in the column */
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.forgotPwBtn {
+  margin-top: 20px; /* Add some space between input and the button */
+  padding: 10px 20px;
+  background-color: #4b2e83;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.forgotPwBtn:hover {
+  background-color: #ccccff;
+  color: black;
+}
+
+
 /* Common styles for both types of messages */
 .message-dm {
   padding: 5px 10px;
@@ -904,7 +943,7 @@ input[type=checkbox] {
   background-color: #ccccff;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 5px;
+  margin-right: 35px;
 }
 
 .friend-profile-image, .profile-img img {
@@ -931,4 +970,65 @@ input[type=checkbox] {
   margin-right: 10px;
 }
 
+.direct-message-page {
+  display: flex;
+  width: 100%;
+  height: calc(100vh);
+  overflow: hidden;
+}
 
+
+.right-container {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.friend-list {
+  height: 20%;
+  overflow-y: auto;
+  background-color: #ccccff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.friend-list h2 {
+  margin: 10px;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Creates a gap between friend-list and chat-container */
+  margin-bottom: 20px;
+}
+
+.message-box {
+  overflow-y: auto;
+  max-height: 420px; /* Adjust based on how much space you want for chat history */
+}
+
+.message-send {
+  display: flex;
+  align-items: center;
+}
+
+.uw-logo {
+  width: 100px;  /* Adjust as necessary */
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+.app-name {
+  text-align: center;  /* Center the text */
+  color: #fff;  /* Set the color you want */
+  margin-bottom: 20px;  /* Space before the form starts */
+}
