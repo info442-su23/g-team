@@ -74,19 +74,19 @@
 - H2. The system should have a search bar to allow users to search for friends **(Completed - Pull #38)**
 - H3. The system should allow users to add friends **(Completed - Pull #33)**
 - H4. There should be suggestions for friends to add mutual friends **(Completed - Pull #33)**
-- H5. When the blocked button is clicked for the selected friend of the user, the user will no longer see that user in the Friends List Page or Direct Message Page. 
-- H6. Blocked blocked users can be unblocked when user searches for the blocked user and clicks the unblock button
-- H7. When the unadd button is clicked, the user will no longer be in the Friends List Page, but may still appear as a suggestion
+- H5. When the blocked button is clicked for the selected friend of the user, the user will no longer see that user in the Friends List Page or Direct Message Page. **(Completed - Pull #44)**
+- H6. Blocked blocked users can be unblocked when user searches for the blocked user and clicks the unblock button **(Completed - Pull #44)**
+- H7. When the unadd button is clicked, the user will no longer be in the Friends List Page, but may still appear as a suggestion **(Completed - Pull #44)**
 
 **6.1 Direct Message Page**
 
-- I1. There will be a message form that appears when the writing icon is clicked, allowing users to select friends’ name(s) from a dropdown list of all of the users’ friends, message form will be an empty textbox until the user inputs a message, and send the message upon the click of the send button
-- I2. Have a panel of user’s friend list of online friends
-- I3. Have a panel of user’s recent messages
-- I4. Messages should have conversation history
-- I5. Opened message page has the friend name and profile photo at the top bar
-- I6. Enter button allows users to send the message
-- I7. Red exclamation mark icon appears next to the message if it fails to send
+- I1. There will be a message form that appears when the writing icon is clicked, allowing users to select friends’ name(s) from a dropdown list of all of the users’ friends, message form will be an empty textbox until the user inputs a message, and send the message upon the click of the send button **(Completed - Pull #38)**
+- I2. Have a panel of user’s friend list of online friends **(Completed - Pull #38)**
+- I3. Have a panel of user’s recent messages **(Completed - Pull #38)**
+- I4. Messages should have conversation history **(Completed - Pull #38)**
+- I5. Opened message page has the friend name and profile photo at the top bar **(Completed - Pull #38)**
+- I6. Enter button allows users to send the message **(Completed - Pull #38)**
+- I7. Red exclamation mark icon appears next to the message if it fails to send **(Completed - Pull #38)**
 
 **7. Get Home Safe Feature Page**
 
