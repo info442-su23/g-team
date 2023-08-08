@@ -33,7 +33,7 @@
 - D4. The account section will show the logged in user’s username, profile picture, and the friends they have currently online. **(Completed - Pull #33)**
 - D5. Next to the account section, there will be posts shown that were created by other users to warn them off any suspicious activity or crimes. **(Completed - Pull #33)**
 - D6. Each page will show 10 recent posts. **(Completed - Pull #33)**
-- D7. Must have a ‘Next’ button to view more or older posts. 
+- D7. Must have a ‘Next’ button to view more or older posts. **(Completed - Pull #33)**
 - D8. Each post will have a title that the original poster has written about the suspicious activity they’ve seen. **(Completed - Pull #33)**
 - D9. Each post will have the original poster’s username, a “heart” feature, and a share function for users to share to their friends. **(Completed - Pull #33)**
 
