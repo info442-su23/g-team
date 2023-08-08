@@ -51,6 +51,7 @@ const SignInForm = () => {
         <button className= "signInBtn" type="submit">Sign In</button>
         {error && <p>{error}</p>}
         <p>Don't have an account? <Link to="/signup-page">Sign Up</Link></p>
+        <Link to="/forgot-password" className="forgotPasswordLink">Forgot your password?</Link>
       </form>
     </div>
   );

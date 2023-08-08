@@ -4,6 +4,7 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 import { db } from '../index';
 import { Link } from 'react-router-dom';
 
+
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +35,7 @@ const SignUpForm = () => {
         email: email,                             // Save the email
         username: email.split('@')[0],            // Save the username as the part of the email before the '@' symbol
         friends: [],
+        profileImageURL: "https://firebasestorage.googleapis.com/v0/b/info442-71420.appspot.com/o/profile_images%2Fdefault%20profile.webp?alt=media&token=33efd42e-ac49-4e02-b755-cc1492d47e7f"
       });
 
       // User registered successfully.

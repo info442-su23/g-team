@@ -77,10 +77,10 @@ const FriendsList = () => {
       {onlineFriends.map((friend) => (
         <div
           key={friend.userId}
-          className="friend-box"
+          className="friend-online-box"
           onClick={() => handleFriendClick(friend.userId)}
         >
-          <div className="friend">
+          <div className="friend-online" style={{ display: 'flex', alignItems: 'center' }}>
             <img
               src={friend.profileImageURL || profileImage}
               alt={`${friend.username || 'Unknown'} Profile Image`}
