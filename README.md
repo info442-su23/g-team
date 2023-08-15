@@ -4,8 +4,8 @@
 
 
 ### **Team Member and Roles**:
-- Jasmine Alindayu(Product Designer)
-- Phyllis Chen(Product Manager)
+- Jasmine Alindayu (Product Designer)
+- Phyllis Chen (Product Manager)
 - Hermon Rusom (Developer)
 - Kaecy Choi (Developer)
 
@@ -22,6 +22,8 @@ As current UW students concerned about the safety of ourselves and our peers, we
 
 ### Citations
 
-Ramirez, Q. (2023, February 7). Seattle 2022 crime report: Violent crime, homicides and shootings increased. king5.com. https://www.king5.com/article/news/crime/seattle-2022-crime-report/281-61f06cb3-9d2b-4183-a6d8-476bf6b50963 Renn, J. (2023, March 9). Stay vigilant: A serious look into UW’s lack of care for its students’ safety. The Daily of the University of Washington. https://www.dailyuw.com/opinion/stay-vigilant-a-serious-look-into-uw-s-lack-of-care-for-its-students-safety/article_64b66ff8-be4c-11ed-8569-77bad2b56e60.html Pyun, Y. (2020). College crime rankings - criminal offenses on campuses. Treasure Coast Newspapers. https://data.tcpalm.com/crimes-on-campus/
+- Ramirez, Q. (2023, February 7). Seattle 2022 crime report: Violent crime, homicides and shootings increased. king5.com. https://www.king5.com/article/news/crime/seattle-2022-crime-report/281-61f06cb3-9d2b-4183-a6d8-476bf6b50963 
+- Renn, J. (2023, March 9). Stay vigilant: A serious look into UW’s lack of care for its students’ safety. The Daily of the University of Washington. https://www.dailyuw.com/opinion/stay-vigilant-a-serious-look-into-uw-s-lack-of-care-for-its-students-safety/article_64b66ff8-be4c-11ed-8569-77bad2b56e60.html 
+- Pyun, Y. (2020). College crime rankings - criminal offenses on campuses. Treasure Coast Newspapers. https://data.tcpalm.com/crimes-on-campus/
 
 
