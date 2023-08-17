@@ -58,7 +58,7 @@ function PostForm() {
   };
 
   const handleClose = () => {
-    window.location.href = "/";
+    window.location.href = "/home";
   };
 
   return (
