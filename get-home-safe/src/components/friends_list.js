@@ -62,6 +62,7 @@ const FriendsList = () => {
 
   return (
     <div className="friends-list">
+      <h2>My Username</h2>
       <div className="my-info-box">
         <div className="profile-info">
           <div className="profile-img">

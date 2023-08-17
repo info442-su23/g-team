@@ -15,6 +15,7 @@ const EditSettings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Upload image if selected
     if (userId && selectedImage) {
       try {
         const storage = getStorage();
@@ -29,13 +30,17 @@ const EditSettings = () => {
         });
 
         setProfileImageURL(downloadURL);
-        setIsOpen(true);
       } catch (error) {
         console.error("Error updating profile image: ", error);
-        // Add a UI notification to inform the user of the error
       }
     }
+
+    // Save other profile details (gender, major, school year)
+    // NOTE: You'll need to implement this part
+
+    setIsOpen(true);  // Show success message after saving details
   };
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];

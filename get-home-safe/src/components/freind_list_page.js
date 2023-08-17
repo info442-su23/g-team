@@ -42,7 +42,7 @@ function FriendsListPage() {
           const usersList = usersSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
           // Make sure current user and current friends are not shown in the suggestion list
-          const suggestedFriendsList = usersList.filter((user) => user.id !== userId && !userData.friends.some((friend) => friend.id === user.id));
+          const suggestedFriendsList = usersList.filter((user) => user.id !== userId && !userData.friends.some((friend) => friend.id === user.id)).slice(0, 5);
           setSuggestedFriends(suggestedFriendsList);
         }
       } catch (error) {

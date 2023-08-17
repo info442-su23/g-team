@@ -93,7 +93,8 @@ body {
   border-radius: 10px;
   max-width: 20%;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-  max-height: 500px;
+  max-height: 570px;
+  margin-right: 10px;
 }
 
 .friend-online-box, .my-info-box, .thread-box {
@@ -105,6 +106,13 @@ body {
   margin-left: 10px;
 }
 
+.friend-online-box {
+  position: relative;
+}
+
+.friend-online-box:hover {
+cursor: pointer;
+}
 .friend-online {
   font-weight: bold;
   display: flex;
@@ -303,7 +311,7 @@ input[type="file"] {
 /* Viewing message (message detail page) */
 .message-detail-container {
   width: 70%;
-  padding: 20px;
+  margin-left: 10px;
   box-sizing: border-box;
 }
 
@@ -314,6 +322,14 @@ input[type="file"] {
   margin-bottom: 20px;
   border-radius: 10px;
 }
+
+.message-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
 
 .comment-box {
   font-family: Arial, sans-serif;
@@ -736,16 +752,6 @@ input[type=checkbox] {
   justify-content: space-between;
 }
 
-.friends-list {
-  width: 25%;
-  padding: 10px;
-  background-color: #ccccff;
-  border-radius: 10px;
-  max-height: 500px;
-  overflow-y: auto;
-  margin-right: 10px;
-}
-
 .right-container {
   display: flex;
   flex-direction: column;
@@ -945,9 +951,12 @@ input[type=checkbox] {
   height: 10px;
   background-color: #ccccff;
   border-radius: 50%;
-  display: inline-block;
-  margin-left: 15px;
+  position: absolute;
+  right: 10px;       /* Adjust this value to position the dot from the right */
+  top: 50%;          /* This places the top edge of the dot at the vertical middle */
+  transform: translateY(-50%); /* This moves the dot up by half its height, thus vertically centering it */
 }
+
 
 .friend-profile-image, .profile-img img {
   width: 25px; /* or whatever size you'd like */
@@ -991,7 +1000,7 @@ input[type=checkbox] {
 .friend-list {
   height: 20%;
   overflow-y: auto;
-  background-color: #ccccff;
+  background-color: #e6e6e6;
   border-radius: 10px;
   padding: 10px;
 }
@@ -1004,7 +1013,7 @@ input[type=checkbox] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 300px;
+  height: 450px;
   overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;
@@ -1036,3 +1045,47 @@ input[type=checkbox] {
   color: #fff;  /* Set the color you want */
   margin-bottom: 20px;  /* Space before the form starts */
 }
+
+
+/* Container for all search results */
+.friend-search-results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Individual search result for freind */
+.friend-search-results {
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* The actions within a friend search result */
+.friend-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: 30px;
+}
+
+/* Additional styling for the Add Friend button */
+.add-friend-button {
+  background-color: #ccccff;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-friend-button:hover {
+  background-color: #b4a0e5;
+}
+

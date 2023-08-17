@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { collection, getDocs, doc, getDoc, addDoc, Timestamp} from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, addDoc, Timestamp, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import Navbar from './navbar';
 import FriendsList from './friends_list';
 import { Footer } from './footer';
-import { db } from '../index';
+import { db, auth } from '../index';
 import UserContext from './user_context';
 
 const DeletedMessage = () => <p>This post has been deleted.</p>;
@@ -38,6 +38,11 @@ const MessageDetail = () => {
       if (docSnap.exists()) {
         console.log("Fetched thread document:", docSnap.data());
         setThreadDetail(docSnap.data());
+
+        // Set the initial state of like count and heart fill
+        const data = docSnap.data();
+        setLikeCount(data.likeCount || 0);
+        setHeartFilled(data.likedBy && data.likedBy.includes(auth.currentUser.uid));
       } else {
         console.log("No such document!");
       }
@@ -68,18 +73,31 @@ const MessageDetail = () => {
     setCommentBoxDisplay(false);
   };
 
-  const toggleHeartIcon = () => {
+  const toggleHeartIcon = async () => {
+    const newLikeCount = isHeartFilled ? likeCount - 1 : likeCount + 1;
+    setLikeCount(newLikeCount);
     setHeartFilled(!isHeartFilled);
-    setLikeCount(isHeartFilled ? likeCount - 1 : likeCount + 1);
+
+    // Update Firebase
+    const postRef = doc(db, 'posts', threadId);
+    if (isHeartFilled) {
+      await updateDoc(postRef, {
+        likeCount: newLikeCount,
+        likedBy: arrayRemove(auth.currentUser.uid)
+      });
+    } else {
+      await updateDoc(postRef, {
+        likeCount: newLikeCount,
+        likedBy: arrayUnion(auth.currentUser.uid)
+      });
+    }
   };
 
   const postContent = threadDetail.isDeleted
     ? <DeletedMessage />
     : <NormalMessage message={threadDetail.message} postedBy={threadDetail.postedBy} imageUrl={threadDetail.imageURL} />;
 
-
   return (
-
     <>
       <header>
         <Navbar />

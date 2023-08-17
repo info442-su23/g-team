@@ -34,7 +34,7 @@ const App = () => {
         <Routes>
           <Route path="/addpost" element={<AddPost />} />
           <Route path="/message-detail/:threadId" element={<MessageDetail />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/edit-settings" element={<EditSettings />} />
           <Route path="/request-walking-buddy" element={<GetHomeSafeFeature />} />
@@ -46,6 +46,7 @@ const App = () => {
           <Route path='/forgot-password' element={<ForgotPwPage />} />
           {/* Direct child of Router */}
           <Route path="/signin-page" element={<SignInPage />} />
+          <Route path="/" element={<SignInPage />} />
         </Routes>
       </div>
     </Router>
