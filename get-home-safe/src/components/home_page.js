@@ -47,7 +47,6 @@ const Home = () => {
           <div className="container">
             <FriendsList />
             <div className="threads">
-            <ThreadBox isDeleted={true} />
               {postsList.length === 0 ? (
                 <p>No posts match the search term. Try Again.</p>
               ) : (

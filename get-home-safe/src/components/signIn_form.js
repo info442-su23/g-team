@@ -17,7 +17,7 @@ const SignInForm = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // If sser signs in successfully, redirect them to the home page.
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       // Handle errors here, display the error message to the user
       setError("Incorrect email or password.");

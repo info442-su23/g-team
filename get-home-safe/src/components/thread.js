@@ -1,43 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
+import { doc, updateDoc, onSnapshot, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { db, auth } from '../index';  // Adjust the path to point to your index.js file
 
-// Main component to display a thread box (title, message, and message icons)
 const ThreadBox = ({ title, message, postedBy, postTime, isDeleted = false, id }) => {
   const [isHeartFilled, setHeartFilled] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleHeartIcon = (e) => {
+  useEffect(() => {
+    const postRef = doc(db, 'posts', id);
+    const unsubscribe = onSnapshot(postRef, snapshot => {
+      const data = snapshot.data();
+      if (data) {
+        setLikeCount(data.likeCount || 0);
+        setHeartFilled(data.likedBy && data.likedBy.includes(auth.currentUser.uid));
+      }
+    });
+
+    return () => unsubscribe(); // Clean up the listener on unmount
+  }, [id]);
+
+  const toggleHeartIcon = async (e) => {
     e.stopPropagation();
+
+    const newLikeCount = isHeartFilled ? likeCount - 1 : likeCount + 1;
+    setLikeCount(newLikeCount);
     setHeartFilled(!isHeartFilled);
-    setLikeCount(isHeartFilled ? likeCount - 1 : likeCount + 1);
+
+    // Update Firebase
+    const postRef = doc(db, 'posts', id);
+    if (isHeartFilled) {
+      await updateDoc(postRef, {
+        likeCount: newLikeCount,
+        likedBy: arrayRemove(auth.currentUser.uid)
+      });
+    } else {
+      await updateDoc(postRef, {
+        likeCount: newLikeCount,
+        likedBy: arrayUnion(auth.currentUser.uid)
+      });
+    }
   };
 
   const postContent = isDeleted
     ? <p>This post has been deleted.</p>
     : (
       <>
-        {/* Display the message content */}
         <p>{message}</p>
-        {/* Display the username of the user who posted the message */}
         <p>Posted by {postedBy}</p>
       </>
     );
 
   const icons = !isDeleted && (
     <>
-      {/* Heart icon - changes based on whether it's filled or not */}
       <FontAwesomeIcon
         icon={isHeartFilled ? solidHeart : regularHeart}
         onClick={toggleHeartIcon}
       />
-      {/* Display the number of likes */}
       <span className="like-count">{likeCount}</span>
-      {/* Ellipsis icon (to be implemented) */}
-      <FontAwesomeIcon icon={faEllipsisH} />
     </>
   );
 
@@ -45,9 +69,7 @@ const ThreadBox = ({ title, message, postedBy, postTime, isDeleted = false, id }
     if (!timestamp?.seconds) return "Unknown Date";
     const date = new Date(timestamp.seconds * 1000);
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-};
-
-
+  };
 
   const postLink = isDeleted ? "/deleted-post" : `/message-detail/${id}`;
   const postTitle = isDeleted ? "Deleted Post" : title;
@@ -71,6 +93,3 @@ const ThreadBox = ({ title, message, postedBy, postTime, isDeleted = false, id }
 };
 
 export default ThreadBox;
-
-
-
