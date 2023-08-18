@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import {
   onSnapshot,
   collection,
@@ -23,6 +23,7 @@ import FriendsList from './friends_list';
 const DirectMessage = () => {
   const { userId: currentUserId } = useContext(UserContext);
   const { friendId } = useParams();
+  const navigate = useNavigate();
 
   const [selectedFriend, setSelectedFriend] = useState(friendId);
   const [friends, setFriends] = useState([]);
@@ -35,7 +36,13 @@ const DirectMessage = () => {
     return [userId1, userId2].sort().join('-');
   }
 
+  const handleFriendClick = (friendId) => {
+    navigate(`/direct-message/${friendId}`);
+  };
+
   useEffect(() => {
+    setSelectedFriend(friendId);
+
     const fetchFriends = async () => {
       try {
         const conversationsRef = collection(db, 'conversations');
@@ -64,7 +71,7 @@ const DirectMessage = () => {
       }
     };
     fetchFriends();
-  }, [currentUserId]);
+  }, [currentUserId, friendId]);
 
   const conversationId = generateConversationId(currentUserId, selectedFriend);
   console.log('Conversation ID:', conversationId);
@@ -145,9 +152,7 @@ const DirectMessage = () => {
               <div
                 key={friend.id}
                 className={`friend ${selectedFriend === friend.id ? 'selected' : ''}`}
-                onClick={() => {
-                  setSelectedFriend(friend.id);
-                }}
+                onClick={() => handleFriendClick(friend.id)}
               >
                 <img
                   src={friend.profileImageURL || '/path_to_default_image.jpg'}

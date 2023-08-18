@@ -150,9 +150,6 @@ function FriendsListPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button type="submit">
-              <FontAwesomeIcon icon={faSearch} />
-            </button>
           </div>
 
           <div>
@@ -176,6 +173,12 @@ function FriendsListPage() {
 
           <div className="friends-page-container">
             <h3>Your Friends</h3>
+
+            {friends.length === 0 && searchQuery === '' && (
+              <div className="empty-friend-list">
+                Your friend list is currently empty.
+              </div>
+              )}
             {friends.map((friend) => (
               <div key={friend.id} className={`friend ${friend.isBlocked ? 'blocked' : ''}`}>
                 <span>{friend.username}</span>

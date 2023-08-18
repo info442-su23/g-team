@@ -521,14 +521,6 @@ input[type=checkbox] {
   cursor: pointer;
 }
 
-.buddy-request-box img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.buddy-request
 
 .location {
   font-weight: normal;
@@ -614,10 +606,6 @@ input[type=checkbox] {
   color: #ccccff;
 }
 
-.underline {
-  text-decoration: underline;
-}
-
 /* Friends List Page */
 
 .friends-list-page {
@@ -633,11 +621,6 @@ input[type=checkbox] {
   margin-bottom: 20px;
 }
 
-.search-bar-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
 .search-bar-container input[type="text"] {
   padding: 10px;
@@ -776,14 +759,12 @@ input[type=checkbox] {
   margin-bottom: 10px;
   border-radius: 10px;
   background-color: white;
-  cursor: pointer;
 }
 
 .conversation-box:hover {
   background-color: #f5f5f5;
+  cursor:pointer;
 }
-
-
 
 .message-box {
   flex-grow: 1;
@@ -797,8 +778,6 @@ input[type=checkbox] {
   background-color: white;
   width: fit-content;
 }
-
-
 
 .message-send {
   display: flex;
@@ -952,8 +931,8 @@ input[type=checkbox] {
   background-color: #ccccff;
   border-radius: 50%;
   position: absolute;
-  right: 10px;       /* Adjust this value to position the dot from the right */
-  top: 50%;          /* This places the top edge of the dot at the vertical middle */
+  right: 10px;
+  top: 50%;
   transform: translateY(-50%); /* This moves the dot up by half its height, thus vertically centering it */
 }
 
@@ -1013,19 +992,19 @@ input[type=checkbox] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 450px;
+  height: 500px;
   overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px; /* Creates a gap between friend-list and chat-container */
+  margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
 }
 
 .message-box {
   overflow-y: auto;
-  max-height: 420px; /* Adjust based on how much space you want for chat history */
+  max-height: 420px;
 }
 
 .message-send {
@@ -1034,10 +1013,10 @@ input[type=checkbox] {
 }
 
 .uw-logo {
-  width: 100px;  /* Adjust as necessary */
+  width: 100px;
   height: auto;
   display: block;
-  margin: 0 auto; /* Center the image */
+  margin: 0 auto;
 }
 
 .app-name {
@@ -1089,3 +1068,77 @@ input[type=checkbox] {
   background-color: #b4a0e5;
 }
 
+/* Styling for mobile screen */
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.search-bar {
+  flex: 2; /* This will allow the search bar to take up twice the space of the logo, adjusting to your design. You can tweak as needed */
+  order: 2;
+  max-width: 300px;
+  min-width: 200px;
+  margin-left: 40px;
+}
+
+.hamburger-menu {
+  order: 3;
+  margin-left: auto;
+  margin-right: 20px;
+  display: none;
+  cursor: pointer;
+}
+
+.nav-links.open {
+  display: block;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 200px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 15px;
+  border-radius: 5px;
+}
+
+.nav-links.open li {
+  display: block;
+  margin: 10px 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .hamburger-menu {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  footer {
+    display: none;
+  }
+
+  .friends-list {
+    display: table;
+  }
+
+  .buddy-request-container {
+    margin-left: 20px;
+  }
+
+  .getHomeSafeFeature, .profile-container {
+    border: none;
+  }
+
+  .forgotPwFormContainer {
+    width: fit-content;
+  }
+
+}

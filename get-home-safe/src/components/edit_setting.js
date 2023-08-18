@@ -103,6 +103,7 @@ const EditSettings = () => {
             <option value="sophomore">Sophomore</option>
             <option value="junior">Junior</option>
             <option value="senior">Senior</option>
+            <option value="graduate">Graduate</option>
           </select>
           <br /><br />
           <input type="submit" value="Save Changes" className="saveChangeBtn" />
